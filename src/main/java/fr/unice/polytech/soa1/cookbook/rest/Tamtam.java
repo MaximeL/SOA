@@ -1,7 +1,7 @@
 package fr.unice.polytech.soa1.cookbook.rest;
 
 /**
- * Created by Sébastien on 21/09/2015.
+ * Created by Sï¿½bastien on 21/09/2015.
  */
 public class Tamtam {
     private int id;
@@ -52,5 +52,16 @@ public class Tamtam {
 
     public void setSkin(String skin) {
         this.skin = skin;
+    }
+
+    @Override
+    public String toString() {
+        return "Tamtam{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", wood='" + wood + '\'' +
+                ", skin='" + skin + '\'' +
+                '}';
     }
 }

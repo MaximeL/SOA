@@ -10,7 +10,7 @@ public class Storage {
 	private static HashMap<Integer, Tamtam> contents = new HashMap<Integer, Tamtam>();
 
 	public static void create(Tamtam tamtam) {
-		contents.put(tamtam->getId(), tamtam);
+		contents.put(tamtam.getId(), tamtam);
 	}
 
 
@@ -28,7 +28,14 @@ public class Storage {
 
 
 	static {
-		Storage.create(new Tamtam());
+		Tamtam tamtam = new Tamtam(1);
+		tamtam.setName("");
+		tamtam.setBrand("");
+		tamtam.setSkin("");
+		tamtam.setWood("");
+
+
+		Storage.create(tamtam);
 	}
 
 }

@@ -13,6 +13,10 @@ import java.util.Collection;
 @Path("/tamtams")
 @Produces(MediaType.APPLICATION_JSON)
 public class TamtamService {
+    /**
+     * Liste des tamtams
+     * @return Response
+     */
     @GET
     public Response getAvailableTamtams() {
         Collection<Tamtam> tamtams = Storage.findAll();
@@ -30,7 +34,7 @@ public class TamtamService {
         if(tamtam == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        String value = Storage.read(id).run();
+        String value = Storage.read(id).toString();
         return Response.ok().entity("\""+value+"\"").build();
     }
 
@@ -38,35 +42,35 @@ public class TamtamService {
     @GET
     public Response foundTamtam()
     {
-
+        return Response.ok().entity("").build();
     }
 
-    @Path("tamtams")
+    @Path("tamtams/types")
     @GET
-    public Response azeaze()
+    public Response getTypes()
     {
-
+        return Response.ok().entity("").build();
     }
 
 
-    @Path("/tamtams/marques")
+    @Path("/tamtams/brands")
     @GET
-    public Response aze(@PathParam("marque") String marque)
+    public Response getBrands()
     {
-
+        return Response.ok().entity("").build();
     }
 
-    @Path("/tamtams/peaux")
+    @Path("/tamtams/skins")
     @GET
-    public Response aze(@PathParam("marque") String marque)
+    public Response getSkins()
     {
-
+        return Response.ok().entity("").build();
     }
 
-    @Path("/tamtams/bois")
+    @Path("/tamtams/wood")
     @GET
-    public Response aze(@PathParam("marque") String marque)
+    public Response getWood()
     {
-
+        return Response.ok().entity("").build();
     }
 }
