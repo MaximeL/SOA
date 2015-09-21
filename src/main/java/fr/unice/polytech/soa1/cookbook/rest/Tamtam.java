@@ -1,15 +1,20 @@
 package fr.unice.polytech.soa1.cookbook.rest;
 
-/**
- * Created by S�bastien on 21/09/2015.
- */
+import java.util.ArrayList;
+
 public class Tamtam {
     private int id;
     private String name;
     private String description;
+    private String image;
+
     private String brand;
     private String wood;
     private String skin;
+    private double price;
+
+    private ArrayList<Shipment> shipments = new ArrayList<Shipment>();
+    private ArrayList<Decoration> decorations = new ArrayList<Decoration>();
 
     public Tamtam(int id) {
         this.id = id;
@@ -39,6 +44,14 @@ public class Tamtam {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getBrand() {
         return brand;
     }
@@ -63,6 +76,32 @@ public class Tamtam {
         this.skin = skin;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void addDecoration(Decoration decoration) {
+        this.decorations.add(decoration);
+    }
+
+    public ArrayList<Decoration> getDecorations()
+    {
+        return this.decorations;
+    }
+
+    public void addShipment(Shipment shipment) {
+        this.shipments.add(shipment);
+    }
+
+    public ArrayList<Shipment> getShipments()
+    {
+        return this.shipments;
+    }
+
     @Override
     public String toString() {
         return "Tamtam{" +
@@ -72,6 +111,7 @@ public class Tamtam {
                 ", brand='" + brand + '\'' +
                 ", wood='" + wood + '\'' +
                 ", skin='" + skin + '\'' +
-            '}';
+                ", price=" + price +
+                '}';
     }
 }
