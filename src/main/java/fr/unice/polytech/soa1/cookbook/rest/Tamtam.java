@@ -6,12 +6,13 @@ package fr.unice.polytech.soa1.cookbook.rest;
 public class Tamtam {
     private int id;
     private String name;
+    private String description;
     private String brand;
     private String wood;
     private String skin;
 
     public Tamtam(int id) {
-
+        this.id = id;
     }
 
     public int getId() {
@@ -28,6 +29,14 @@ public class Tamtam {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getBrand() {
@@ -59,9 +68,10 @@ public class Tamtam {
         return "Tamtam{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", brand='" + brand + '\'' +
                 ", wood='" + wood + '\'' +
                 ", skin='" + skin + '\'' +
-                '}';
+            '}';
     }
 }

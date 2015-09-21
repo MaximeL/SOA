@@ -13,6 +13,7 @@ import java.util.Collection;
 @Path("/tamtams")
 @Produces(MediaType.APPLICATION_JSON)
 public class TamtamService {
+
     /**
      * Liste des tamtams
      * @return Response
@@ -27,6 +28,7 @@ public class TamtamService {
         return Response.ok().entity(result.toString(2)).build();
     }
 
+
     @Path("/tamtams/{id}")
     @GET
     public Response getTamtam(@PathParam("id") int id) {
@@ -37,6 +39,7 @@ public class TamtamService {
         String value = Storage.read(id).toString();
         return Response.ok().entity("\""+value+"\"").build();
     }
+
 
     @Path("/tamtams/search/marque/{marque}/peau/{peau}/bois/{bois}/")
     @GET
@@ -49,7 +52,22 @@ public class TamtamService {
     @GET
     public Response getTypes()
     {
-        return Response.ok().entity("").build();
+        Collection<Tamtam> tamtams = Storage.findAll();
+        JSONArray result = new JSONArray();
+
+        JSONArray woods = new JSONArray("woods");
+        JSONArray skins = new JSONArray("skins");
+        JSONArray brand = new JSONArray("brands");
+
+        for(Tamtam tamtam: tamtams) {
+            woods.put(tamtam.getWood());
+            skins.put(tamtam.getSkin());
+            brand.put(tamtam.getBrand());
+        }
+        result.put(woods);
+        result.put(skins);
+        result.put(brand);
+        return Response.ok().entity(result.toString(2)).build();
     }
 
 
@@ -57,20 +75,35 @@ public class TamtamService {
     @GET
     public Response getBrands()
     {
-        return Response.ok().entity("").build();
+        Collection<Tamtam> tamtams = Storage.findAll();
+        JSONArray result = new JSONArray();
+        for(Tamtam tamtam: tamtams) {
+            result.put(tamtam.getBrand());
+        }
+        return Response.ok().entity(result.toString(2)).build();
     }
 
     @Path("/tamtams/skins")
     @GET
     public Response getSkins()
     {
-        return Response.ok().entity("").build();
+        Collection<Tamtam> tamtams = Storage.findAll();
+        JSONArray result = new JSONArray();
+        for(Tamtam tamtam: tamtams) {
+            result.put(tamtam.getSkin());
+        }
+        return Response.ok().entity(result.toString(2)).build();
     }
 
     @Path("/tamtams/wood")
     @GET
     public Response getWood()
     {
-        return Response.ok().entity("").build();
+        Collection<Tamtam> tamtams = Storage.findAll();
+        JSONArray result = new JSONArray();
+        for(Tamtam tamtam: tamtams) {
+            result.put(tamtam.getWood());
+        }
+        return Response.ok().entity(result.toString(2)).build();
     }
 }
