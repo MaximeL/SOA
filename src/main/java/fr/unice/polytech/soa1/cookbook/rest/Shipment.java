@@ -48,4 +48,14 @@ public class Shipment {
     public void setDelay(Period delay) {
         this.delay = delay;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"id\":" + id +
+                ", \"name\":\"" + name + "\"" +
+                ", \"price\":" + price +
+                ", \"delay\":\"" + delay.getDays() + " jours\"" +
+                '}';
+    }
 }

@@ -42,14 +42,17 @@ public class Storage {
 		Decoration leopard = new Decoration(1);
 		leopard.setName("Design Léopard");
 		leopard.setPrice(0.12);
+		leopard.setImage("http://images.jedessine.com/_uploads/_tiny_galerie/20091044/leopard-dessin-source_sen.jpg");
 
 		Decoration zebre = new Decoration(2);
 		zebre.setName("Design zébré");
 		zebre.setPrice(2);
+		zebre.setImage("http://www.quizz.biz/uploads/quizz/823431/10_MSbd0.jpg");
 
 		Decoration militaire = new Decoration(3);
 		militaire.setName("Furtif");
 		militaire.setPrice(-2);
+		militaire.setImage("http://i.ytimg.com/vi/8DIhCp1O52Q/hqdefault.jpg");
 
 		Tamtam tamtam = new Tamtam(1);
 		tamtam.setName("Tamtam 1");

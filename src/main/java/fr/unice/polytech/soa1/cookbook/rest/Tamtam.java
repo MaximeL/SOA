@@ -18,6 +18,7 @@ public class Tamtam {
 
     public Tamtam(int id) {
         this.id = id;
+        this.image = "http://www.langebeau.com/372-thickbox/tambour-tam-tam-djembe.jpg";
         this.description = "Je me souviens en fait, après il faut s'intégrer tout ça dans les environnements et entre penser et dire, il y a un monde de différence et c'est très, très beau d'avoir son propre moi-même ! Mais ça, c'est uniquement lié au spirit.\n" +
                 "\n" +
                 "Ah non attention, même si on frime comme on appelle ça en France... c'est un très, très gros travail et cette officialité peut vraiment retarder ce qui devrait devenir... Et tu as envie de le dire au monde entier, including yourself.\n" +
@@ -112,30 +113,45 @@ public class Tamtam {
     }
 
     public String minToString() {
-        return "Tamtam{" +
-                "id=" + id +
-                ", name='" + name + "'" +
-                ", brand='" + brand + '\'' +
-                ", wood='" + wood + '\'' +
-                ", skin='" + skin + '\'' +
-                ", price=" + price +
+        return "{" +
+                "\"id\":" + id +
+                ", \"name\":\"" + name + "\"" +
+                ", \"brand\":\"" + brand + "\"" +
+                ", \"wood\":\"" + wood + "\"" +
+                ", \"skin\":\"" + skin + "\"" +
+                ", \"price\":" + price +
             "}";
 
     }
 
     @Override
     public String toString() {
-        return "Tamtam{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
-                ", brand='" + brand + '\'' +
-                ", wood='" + wood + '\'' +
-                ", skin='" + skin + '\'' +
-                ", price=" + price +
-                ", shipments=" + shipments +
-                ", decorations=" + decorations +
-                '}';
+        String lists = "\"shipments\":[";
+        for(Shipment shipment : shipments) {
+            lists += shipment;
+            if(shipments.indexOf(shipment) < shipments.size() - 1) {
+                lists += ",";
+            }
+        }
+
+        lists += "], \"decorations\":[";
+        for(Decoration decoration : decorations) {
+            lists += decoration;
+            if(decorations.indexOf(decoration) < decorations.size() - 1) {
+                lists += ",";
+            }
+        }
+        lists += "]";
+        return "{" +
+                "\"id\":" + id +
+                ", \"name\":\"" + name + "\"" +
+                ", \"description\":\"" + description.replaceAll("\n","").replaceAll("\n", "\\n") + "\"" +
+                ", \"image\":\"" + image + "\"" +
+                ", \"brand\":\"" + brand + "\"" +
+                ", \"wood\":\"" + wood + "\"" +
+                ", \"skin\":\"" + skin + "\"" +
+                ", \"price\":" + price +
+                ", " + lists +
+            '}';
     }
 }
