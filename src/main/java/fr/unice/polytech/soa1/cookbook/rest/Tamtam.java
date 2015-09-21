@@ -102,16 +102,31 @@ public class Tamtam {
         return this.shipments;
     }
 
+    public String minToString() {
+        return "Tamtam{" +
+                "id=" + id +
+                ", name='" + name + "'" +
+                ", brand='" + brand + '\'' +
+                ", wood='" + wood + '\'' +
+                ", skin='" + skin + '\'' +
+                ", price=" + price +
+            "}";
+
+    }
+
     @Override
     public String toString() {
         return "Tamtam{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
                 ", brand='" + brand + '\'' +
                 ", wood='" + wood + '\'' +
                 ", skin='" + skin + '\'' +
                 ", price=" + price +
+                ", shipments=" + shipments +
+                ", decorations=" + decorations +
                 '}';
     }
 }
