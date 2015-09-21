@@ -2,10 +2,7 @@ package fr.unice.polytech.soa1.cookbook.rest;
 
 import org.json.JSONArray;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -20,7 +17,7 @@ public class TamtamService {
      */
     @GET
     public Response getAvailableTamtams() {
-        Collection<Tamtam> tamtams = Storage.findAll();
+        Collection<Tamtam> tamtams = Storage.findAllTamtams();
         JSONArray result = new JSONArray();
         for(Tamtam tamtam: tamtams) {
             result.put(tamtam.getName());
@@ -28,31 +25,52 @@ public class TamtamService {
         return Response.ok().entity(result.toString(2)).build();
     }
 
-
+    /**
+     * Liste des tamtams par id
+     * @param id
+     * @return
+     */
     @Path("/tamtams/{id}")
     @GET
     public Response getTamtam(@PathParam("id") int id) {
-        Tamtam tamtam = Storage.read(id);
+        Tamtam tamtam = Storage.getTamtam(id);
         if(tamtam == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        String value = Storage.read(id).toString();
+        String value = Storage.getTamtam(id).toString();
         return Response.ok().entity("\""+value+"\"").build();
     }
 
 
-    @Path("/tamtams/search/marque/{marque}/peau/{peau}/bois/{bois}/")
+    /**
+     * Search for tamtam(s) that fit the parameters.
+     * @param brand
+     * @param skin
+     * @param wood
+     * @return Object Tamtams with an array "tamtam" of Tamtam.
+     */
+    @Path("/tamtams/search/brand/{brand}/skin/{skin}/wood/{wood}/")
     @GET
-    public Response foundTamtam()
+    public Response searchTamtam(@PathParam("brand") String brand, @PathParam("skin") String skin, @PathParam("wood") String wood)
     {
-        return Response.ok().entity("").build();
+        Collection<Tamtam> tamtams = Storage.findAllTamtams();
+        JSONArray result = new JSONArray();
+
+        JSONArray tamtamResult = new JSONArray("tamtams");
+
+        for(Tamtam tamtam: tamtams) {
+            if(tamtam.getBrand().equals(brand) && tamtam.getSkin().equals(skin) && tamtam.getWood().equals(wood))
+                tamtamResult.put(tamtam);
+        }
+        result.put(tamtamResult);
+        return Response.ok().entity(result.toString(2)).build();
     }
 
     @Path("tamtams/types")
     @GET
     public Response getTypes()
     {
-        Collection<Tamtam> tamtams = Storage.findAll();
+        Collection<Tamtam> tamtams = Storage.findAllTamtams();
         JSONArray result = new JSONArray();
 
         JSONArray woods = new JSONArray("woods");
@@ -71,39 +89,6 @@ public class TamtamService {
     }
 
 
-    @Path("/tamtams/brands")
-    @GET
-    public Response getBrands()
-    {
-        Collection<Tamtam> tamtams = Storage.findAll();
-        JSONArray result = new JSONArray();
-        for(Tamtam tamtam: tamtams) {
-            result.put(tamtam.getBrand());
-        }
-        return Response.ok().entity(result.toString(2)).build();
-    }
 
-    @Path("/tamtams/skins")
-    @GET
-    public Response getSkins()
-    {
-        Collection<Tamtam> tamtams = Storage.findAll();
-        JSONArray result = new JSONArray();
-        for(Tamtam tamtam: tamtams) {
-            result.put(tamtam.getSkin());
-        }
-        return Response.ok().entity(result.toString(2)).build();
-    }
-
-    @Path("/tamtams/wood")
-    @GET
-    public Response getWood()
-    {
-        Collection<Tamtam> tamtams = Storage.findAll();
-        JSONArray result = new JSONArray();
-        for(Tamtam tamtam: tamtams) {
-            result.put(tamtam.getWood());
-        }
-        return Response.ok().entity(result.toString(2)).build();
-    }
+    @Path("/tamtams/")
 }
