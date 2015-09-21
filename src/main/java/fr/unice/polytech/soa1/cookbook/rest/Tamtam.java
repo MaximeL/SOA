@@ -18,6 +18,15 @@ public class Tamtam {
 
     public Tamtam(int id) {
         this.id = id;
+        this.description = "Je me souviens en fait, après il faut s'intégrer tout ça dans les environnements et entre penser et dire, il y a un monde de différence et c'est très, très beau d'avoir son propre moi-même ! Mais ça, c'est uniquement lié au spirit.\n" +
+                "\n" +
+                "Ah non attention, même si on frime comme on appelle ça en France... c'est un très, très gros travail et cette officialité peut vraiment retarder ce qui devrait devenir... Et tu as envie de le dire au monde entier, including yourself.\n" +
+                "\n" +
+                "Tu comprends, après il faut s'intégrer tout ça dans les environnements et il faut se recréer... pour recréer... a better you puisque the final conclusion of the spirit is perfection Pour te dire comme on a beaucoup à apprendre sur la vie !\n" +
+                "\n" +
+                "Je me souviens en fait, tu vois au passage qu'il n'y a rien de concret car on vit dans une réalité qu'on a créée et que j'appelle illusion parce que spirituellement, on est tous ensemble, ok ? Mais ça, c'est uniquement lié au spirit.\n" +
+                "\n" +
+                "Je ne voudrais pas rentrer dans des choses trop dimensionnelles, mais, je sais que, grâce à ma propre vérité il faut toute la splendeur du aware et ça, c'est très dur, et, et, et... c'est très facile en même temps. Mais ça, c'est uniquement lié au spirit.",
     }
 
     public int getId() {
