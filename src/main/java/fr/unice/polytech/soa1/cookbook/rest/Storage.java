@@ -9,6 +9,10 @@ public class Storage {
 
 	// this mocks a database.
 	private static HashMap<Integer, Tamtam> tamtams = new HashMap<Integer, Tamtam>();
+	private static HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
+	private static HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
+	private static HashMap<Integer, User> users = new HashMap<Integer, User>();
+	private static HashMap<Integer, Order> orders = new HashMap<Integer, Order>();
 
 	public static void createTamtam(Tamtam tamtam) {
 		tamtams.put(tamtam.getId(), tamtam);
@@ -21,6 +25,31 @@ public class Storage {
 	}
 	public static Collection<Tamtam> findAllTamtams() {
 		return tamtams.values();
+	}
+
+	public static void createDecoration(Decoration decoration) {
+		decorations.put(decoration.getId(), decoration);
+	}
+	public static Decoration getDecoration(Integer id) {
+		return decorations.get(id);
+	}
+
+	public static void createShipment(Shipment shipment) {
+		shipments.put(shipment.getId(), shipment);
+	}
+	public static Shipment getShipment(Integer id) {
+		return shipments.get(id);
+	}
+
+	public static void createUser(User user) {
+		user.setId(users.size());
+		users.put(user.getId(), user);
+	}
+	public static User getUser(Integer id) {
+		return users.get(id);
+	}
+	public static Collection<User> findAllUsers() {
+		return users.values();
 	}
 
 	static {
@@ -39,6 +68,10 @@ public class Storage {
 		FedEx.setDelay(Period.ofDays(1));
 		FedEx.setPrice(15);
 
+		Storage.createShipment(UPS);
+		Storage.createShipment(Colissimo);
+		Storage.createShipment(FedEx);
+
 		Decoration leopard = new Decoration(1);
 		leopard.setName("Design Léopard");
 		leopard.setPrice(0.12);
@@ -53,6 +86,10 @@ public class Storage {
 		militaire.setName("Furtif");
 		militaire.setPrice(-2);
 		militaire.setImage("http://i.ytimg.com/vi/8DIhCp1O52Q/hqdefault.jpg");
+
+		Storage.createDecoration(leopard);
+		Storage.createDecoration(zebre);
+		Storage.createDecoration(militaire);
 
 		Tamtam tamtam = new Tamtam(1);
 		tamtam.setName("Tamtam 1");

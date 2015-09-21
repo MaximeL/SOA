@@ -42,7 +42,7 @@ public class TamtamService {
         if(tamtam == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok().entity(Storage.getTamtam(id).toString()).build();
+        return Response.ok().entity(tamtam.toString()).build();
     }
 
 
