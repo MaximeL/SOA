@@ -46,7 +46,7 @@ public class Storage {
 
 	// USER
 	public static User createUser(User user) {
-		user.setId(users.size());
+		user.setId(users.size() + 1);
 		users.put(user.getId(), user);
 		return user;
 	}
@@ -68,7 +68,7 @@ public class Storage {
 		return orders.values();
 	}
 	public static Order createOrder(Order order) {
-		order.setId(orders.size());
+		order.setId(orders.size() + 1);
 		orders.put(order.getId(), order);
 		return order;
 	}
@@ -78,7 +78,6 @@ public class Storage {
 
 	static {
 		User user = new User();
-		user.setId(1);
 		user.setAddress1("00 - Rue de Azerty");
 		user.setAddress1("Bâtiment R - Etage 1.25");
 		user.setFullname("Root User");

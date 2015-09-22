@@ -77,12 +77,12 @@ public class User {
     public String toString() {
         return "{" +
                 "\"id\":" + id +
-                ", \"fullname\":" + fullname +
-                ", \"address 1\":" + address1 +
-                ", \"address 2\":" + address2 +
-                ", \"state\":" + state +
-                ", \"postal code\":" + pc +
-                ", \"phone\":" + phone +
+                ", \"fullname\":\"" + fullname + "\"" +
+                ", \"address 1\":\"" + address1 + "\"" +
+                ", \"address 2\":\"" + address2 + "\"" +
+                ", \"state\":\"" + state + "\"" +
+                ", \"postal code\":\"" + pc + "\"" +
+                ", \"phone\":\"" + phone + "\"" +
             "}";
     }
 }

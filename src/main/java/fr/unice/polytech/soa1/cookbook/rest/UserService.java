@@ -43,6 +43,16 @@ public class UserService {
 
     }
 
+    @GET
+    @Path("/{id}")
+    public Response getUser(@PathParam("id") int id) {
+        User user = Storage.getUser(id);
+        if(user != null) {
+            return Response.ok().entity(user.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") int id) {
@@ -54,6 +64,7 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    // TODO : Fonctionne pas ...
     @PUT
     @Path("/{id}")
     public Response updateUser(
@@ -67,12 +78,24 @@ public class UserService {
     ) {
         User user = Storage.getUser(id);
         if(user != null) {
-            user.setFullname(fullname);
-            user.setPhone(phone);
-            user.setAddress1(address1);
-            user.setAddress2(address2);
-            user.setPc(pc);
-            user.setState(state);
+            if(!fullname.equals("")) {
+                user.setFullname(fullname);
+            }
+            if(!phone.equals("")) {
+                user.setPhone(phone);
+            }
+            if(!address1.equals("")) {
+                user.setAddress1(address1);
+            }
+            if(!address2.equals("")) {
+                user.setAddress2(address2);
+            }
+            if(!pc.equals("")) {
+                user.setPc(pc);
+            }
+            if(!state.equals("")) {
+                user.setState(state);
+            }
             Storage.updateUser(user);
             return Response.ok().entity(user.toString()).build();
         }
