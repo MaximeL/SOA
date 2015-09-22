@@ -22,9 +22,4 @@ public class OrderService {
 
         return Response.ok().entity(object.toString()).build();
     }
-
-    public static void main(String[] args) {
-        OrderService service = new OrderService();
-        service.createOrder(1, 2, 1);
-    }
 }

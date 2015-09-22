@@ -11,7 +11,6 @@ public class Storage {
 	private static HashMap<Integer, Tamtam> tamtams = new HashMap<Integer, Tamtam>();
 	private static HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
 	private static HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
-	private static HashMap<Integer, User> users = new HashMap<Integer, User>();
 	private static HashMap<Integer, Order> orders = new HashMap<Integer, Order>();
 
 	public static void createTamtam(Tamtam tamtam) {
@@ -39,17 +38,6 @@ public class Storage {
 	}
 	public static Shipment getShipment(Integer id) {
 		return shipments.get(id);
-	}
-
-	public static void createUser(User user) {
-		user.setId(users.size());
-		users.put(user.getId(), user);
-	}
-	public static User getUser(Integer id) {
-		return users.get(id);
-	}
-	public static Collection<User> findAllUsers() {
-		return users.values();
 	}
 
 	static {
