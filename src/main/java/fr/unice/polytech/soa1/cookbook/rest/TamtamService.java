@@ -3,10 +3,7 @@ package fr.unice.polytech.soa1.cookbook.rest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -53,16 +50,21 @@ public class TamtamService {
      * @param wood String
      * @return Object Tamtams with an array "tamtam" of Tamtam.
      */
-    @Path("/search/brand/{brand}/skin/{skin}/wood/{wood}/")
+    @Path("/search")
     @GET
-    public Response searchTamtam(@PathParam("brand") String brand, @PathParam("skin") String skin, @PathParam("wood") String wood)
+    public Response searchTamtam(@QueryParam("brand") String brand, @QueryParam("skin") String skin, @QueryParam("wood") String wood)
     {
         Collection<Tamtam> tamtams = Storage.findAllTamtams();
         JSONArray result = new JSONArray();
 
         for(Tamtam tamtam: tamtams) {
-            if(tamtam.getBrand().equals(brand) && tamtam.getSkin().equals(skin) && tamtam.getWood().equals(wood))
-                result.put(new JSONObject(tamtam));
+            if(brand == null || tamtam.getBrand().equals(brand)) {
+                if(skin == null || tamtam.getSkin().equals(skin)) {
+                    if(wood == null || tamtam.getWood().equals(wood)) {
+                        result.put(new JSONObject(tamtam));
+                    }
+                }
+            }
         }
 
         return Response.ok().entity(result.toString(2)).build();

@@ -27,10 +27,12 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
         <jaxrs:serviceBeans>
             <ref component-id="tamtamService"/>
             <ref component-id="orderService"/>
+            <ref component-id="userService"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
     <bean id="tamtamService" class="fr.unice.polytech.soa1.cookbook.rest.TamtamService"/>
     <bean id="orderService" class="fr.unice.polytech.soa1.cookbook.rest.OrderService"/>
+    <bean id="userService" class="fr.unice.polytech.soa1.cookbook.rest.UserService"/>
 
 </blueprint>

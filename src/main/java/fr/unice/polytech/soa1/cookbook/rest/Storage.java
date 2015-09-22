@@ -9,10 +9,12 @@ public class Storage {
 
 	// this mocks a database.
 	private static HashMap<Integer, Tamtam> tamtams = new HashMap<Integer, Tamtam>();
+	private static HashMap<Integer, User> users = new HashMap<Integer, User>();
 	private static HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
 	private static HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
 	private static HashMap<Integer, Order> orders = new HashMap<Integer, Order>();
 
+	// TAMTAM
 	public static void createTamtam(Tamtam tamtam) {
 		tamtams.put(tamtam.getId(), tamtam);
 	}
@@ -26,6 +28,7 @@ public class Storage {
 		return tamtams.values();
 	}
 
+	// DECORATION
 	public static void createDecoration(Decoration decoration) {
 		decorations.put(decoration.getId(), decoration);
 	}
@@ -33,6 +36,7 @@ public class Storage {
 		return decorations.get(id);
 	}
 
+	// SHIPMENT
 	public static void createShipment(Shipment shipment) {
 		shipments.put(shipment.getId(), shipment);
 	}
@@ -40,7 +44,51 @@ public class Storage {
 		return shipments.get(id);
 	}
 
+	// USER
+	public static User createUser(User user) {
+		user.setId(users.size());
+		users.put(user.getId(), user);
+		return user;
+	}
+	public static void deleteUser(Integer id) {
+		users.remove(id);
+	}
+	public static void updateUser(User user) {
+		// TODO Automatique avec les références ?
+	}
+	public static User getUser(Integer id) {
+		return users.get(id);
+	}
+	public static Collection<User> findAllUsers() {
+		return users.values();
+	}
+
+	// ORDER
+	public static Collection<Order> findAllOrders() {
+		return orders.values();
+	}
+	public static Order createOrder(Order order) {
+		order.setId(orders.size());
+		orders.put(order.getId(), order);
+		return order;
+	}
+	public static Order getOrder(Integer id) {
+		return orders.get(id);
+	}
+
 	static {
+		User user = new User();
+		user.setId(1);
+		user.setAddress1("00 - Rue de Azerty");
+		user.setAddress1("Bâtiment R - Etage 1.25");
+		user.setFullname("Root User");
+		user.setPc("57872");
+		user.setState("France");
+		user.setPhone("+33705214896");
+
+		Storage.createUser(user);
+
+
 		Shipment UPS = new Shipment(1);
 		UPS.setName("UPS");
 		UPS.setDelay(Period.ofDays(2));
