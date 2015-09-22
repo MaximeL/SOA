@@ -1,6 +1,6 @@
 package test.java.fr.unice.polytech.soa1.cookbook.rest;
 
-import fr.unice.polytech.soa1.cookbook.rest.Tamtam;
+import fr.unice.polytech.soa1.cookbook.rest.TamtamService;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
