@@ -1,12 +1,7 @@
 package fr.unice.polytech.soa1.cookbook.rest;
 
 import java.time.Period;
-import java.util.Collection;
-import java.util.HashMap;
 
-/**
- * Created by Sébastien on 21/09/2015.
- */
 public class Shipment {
     private int id;
     private String name;

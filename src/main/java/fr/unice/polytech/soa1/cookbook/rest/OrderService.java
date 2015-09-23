@@ -39,6 +39,13 @@ public class OrderService {
 
         Decoration decoration = Storage.getDecoration(idDecoration);
 
+        if(
+            !(decoration != null && tamtam.getDecorations().containsKey(idDecoration)) ||
+            !tamtam.getShipments().containsKey(shipment.getId())
+        ) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
         Order order = new Order();
         order.setTamtam(tamtam);
         order.setShipment(shipment);

@@ -1,6 +1,6 @@
 package fr.unice.polytech.soa1.cookbook.rest;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Tamtam {
     private int id;
@@ -13,8 +13,8 @@ public class Tamtam {
     private String skin;
     private double price;
 
-    private ArrayList<Shipment> shipments = new ArrayList<Shipment>();
-    private ArrayList<Decoration> decorations = new ArrayList<Decoration>();
+    private HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
+    private HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
 
     public Tamtam(int id) {
         this.id = id;
@@ -95,19 +95,19 @@ public class Tamtam {
     }
 
     public void addDecoration(Decoration decoration) {
-        this.decorations.add(decoration);
+        this.decorations.put(decoration.getId(), decoration);
     }
 
-    public ArrayList<Decoration> getDecorations()
+    public HashMap<Integer, Decoration> getDecorations()
     {
         return this.decorations;
     }
 
     public void addShipment(Shipment shipment) {
-        this.shipments.add(shipment);
+        this.shipments.put(shipment.getId(), shipment);
     }
 
-    public ArrayList<Shipment> getShipments()
+    public HashMap<Integer, Shipment> getShipments()
     {
         return this.shipments;
     }
@@ -127,20 +127,16 @@ public class Tamtam {
     @Override
     public String toString() {
         String lists = "\"shipments\":[";
-        for(Shipment shipment : shipments) {
-            lists += shipment;
-            if(shipments.indexOf(shipment) < shipments.size() - 1) {
-                lists += ",";
-            }
+        for(Shipment shipment : shipments.values()) {
+            lists += shipment + ",";
         }
+        lists = lists.substring(0, lists.length() - 1);
 
         lists += "], \"decorations\":[";
-        for(Decoration decoration : decorations) {
-            lists += decoration;
-            if(decorations.indexOf(decoration) < decorations.size() - 1) {
-                lists += ",";
-            }
+        for(Decoration decoration : decorations.values()) {
+            lists += decoration + ",";
         }
+        lists = lists.substring(0, lists.length() - 1);
         lists += "]";
         return "{" +
                 "\"id\":" + id +
