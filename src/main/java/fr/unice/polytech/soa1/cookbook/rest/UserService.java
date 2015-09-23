@@ -27,7 +27,7 @@ public class UserService {
             @QueryParam("phone") String phone,
             @QueryParam("address1") String address1,
             @QueryParam("address2") String address2,
-            @QueryParam("potal-code") String pc,
+            @QueryParam("zip-code") String zc,
             @QueryParam("state") String state
         ) {
         User user = new User();
@@ -35,7 +35,7 @@ public class UserService {
         user.setPhone(phone);
         user.setAddress1(address1);
         user.setAddress2(address2);
-        user.setPc(pc);
+        user.setZc(zc);
         user.setState(state);
 
         user = Storage.createUser(user);
@@ -72,7 +72,7 @@ public class UserService {
             @QueryParam("phone") String phone,
             @QueryParam("address1") String address1,
             @QueryParam("address2") String address2,
-            @QueryParam("potal-code") String pc,
+            @QueryParam("zip-code") String zc,
             @QueryParam("state") String state
     ) {
         User user = Storage.getUser(id);
@@ -89,8 +89,8 @@ public class UserService {
             if(!address2.equals("")) {
                 user.setAddress2(address2);
             }
-            if(!pc.equals("")) {
-                user.setPc(pc);
+            if(!zc.equals("")) {
+                user.setZc(zc);
             }
             if(!state.equals("")) {
                 user.setState(state);

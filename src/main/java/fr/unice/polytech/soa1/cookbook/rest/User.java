@@ -6,7 +6,7 @@ public class User {
     private String address1;
     private String address2;
     private String state;
-    private String pc;
+    private String zc;
     private String phone;
 
     public int getId() {
@@ -49,12 +49,12 @@ public class User {
         this.state = state;
     }
 
-    public String getPc() {
-        return pc;
+    public String getZc() {
+        return zc;
     }
 
-    public void setPc(String pc) {
-        this.pc = pc;
+    public void setZc(String zc) {
+        this.zc = zc;
     }
 
     public String getPhone() {
@@ -81,7 +81,7 @@ public class User {
                 ", \"address 1\":\"" + address1 + "\"" +
                 ", \"address 2\":\"" + address2 + "\"" +
                 ", \"state\":\"" + state + "\"" +
-                ", \"postal code\":\"" + pc + "\"" +
+                ", \"zip code\":\"" + zc + "\"" +
                 ", \"phone\":\"" + phone + "\"" +
             "}";
     }
