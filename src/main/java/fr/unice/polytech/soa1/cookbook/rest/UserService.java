@@ -64,7 +64,6 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-    // TODO : Fonctionne pas ...
     @PUT
     @Path("/{id}")
     public Response updateUser(
@@ -96,7 +95,6 @@ public class UserService {
             if(!state.equals("")) {
                 user.setState(state);
             }
-            Storage.updateUser(user);
             return Response.ok().entity(user.toString()).build();
         }
 

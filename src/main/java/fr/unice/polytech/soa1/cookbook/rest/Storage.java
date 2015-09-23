@@ -53,9 +53,6 @@ public class Storage {
 	public static void deleteUser(Integer id) {
 		users.remove(id);
 	}
-	public static void updateUser(User user) {
-		// TODO Automatique avec les références ?
-	}
 	public static User getUser(Integer id) {
 		return users.get(id);
 	}
