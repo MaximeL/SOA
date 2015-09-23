@@ -52,7 +52,7 @@ public class Order {
     {
         String deco = "";
         if(decoration != null) {
-            deco += "\"decoration\":" + decoration.toString();
+            deco += ", \"decoration\":" + decoration.toString();
         }
         return "{" +
                 "\"id\":" + id +
