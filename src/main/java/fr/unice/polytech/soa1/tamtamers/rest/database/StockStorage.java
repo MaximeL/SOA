@@ -10,23 +10,34 @@ import java.util.Random;
 public class StockStorage {
     private static HashMap<Integer, StockItem> stockItems = new HashMap<Integer, StockItem>();
 
-    public static Collection<StockItem> findAllStockItems() {
-        return stockItems.values();
+    public static Collection<StockItem> getAllStockItems() {
+        HashMap<Integer, StockItem> items = new HashMap<Integer, StockItem>();
+        for(StockItem item : stockItems.values()) {
+            if(!item.isDisabled()) {
+                items.put(item.getItemId(), item);
+            }
+        }
+        return items.values();
     }
 
-    public static StockItem findStockItem(Integer id) {
+    public static StockItem getStockItem(Integer id) {
         return stockItems.get(id);
     }
 
+    public static StockItem store(StockItem item) {
+        stockItems.put(item.getItemId(), item);
+        return item;
+    }
+
     static {
-        Collection tamtams = TamtamStorage.findAllTamtams();
+        Collection<Tamtam> tamtams = TamtamStorage.findAllTamtams();
         StockItem item;
         Random random = new Random();
         for(Tamtam tamtam : tamtams) {
             item = new StockItem();
             item.setItemId(tamtam.getId());
             item.setNumberInStock(random.nextInt(100));
+            stockItems.put(item.getItemId(), item);
         }
-        // TODO : Initialiser le stock
     }
 }

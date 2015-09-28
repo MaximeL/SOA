@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-// TODO : Sébastien Pas de verbe
+// TODO : Sï¿½bastien Pas de verbe
 @Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderService {

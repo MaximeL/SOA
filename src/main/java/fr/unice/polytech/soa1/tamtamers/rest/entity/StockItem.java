@@ -9,6 +9,8 @@ public class StockItem {
     // TODO Un bon nom
     private Object timeTo;
 
+    private boolean disabled;
+
     public StockItem() {
 
     }
@@ -44,5 +46,20 @@ public class StockItem {
 
     public void setTimeTo(Object timeTo) {
         this.timeTo = timeTo;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+
+    @Override
+    public String toString()
+    {
+        // TODO
+        return super.toString();
     }
 }
