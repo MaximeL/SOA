@@ -1,4 +1,4 @@
-package fr.unice.polytech.soa1.cookbook.rest;
+package fr.unice.polytech.soa1.tamtamers.rest.entity;
 
 import java.util.HashMap;
 

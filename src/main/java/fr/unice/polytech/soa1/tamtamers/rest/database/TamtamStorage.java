@@ -1,18 +1,19 @@
-package fr.unice.polytech.soa1.cookbook.rest;
+package fr.unice.polytech.soa1.tamtamers.rest.database;
 
+
+import fr.unice.polytech.soa1.tamtamers.rest.entity.*;
 
 import java.time.Period;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class Storage {
+public class TamtamStorage {
 
 	// this mocks a database.
 	private static HashMap<Integer, Tamtam> tamtams = new HashMap<Integer, Tamtam>();
-	private static HashMap<Integer, User> users = new HashMap<Integer, User>();
 	private static HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
 	private static HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
-	private static HashMap<Integer, Order> orders = new HashMap<Integer, Order>();
+
 
 	// TAMTAM
 	public static void createTamtam(Tamtam tamtam) {
@@ -44,65 +45,16 @@ public class Storage {
 		return shipments.get(id);
 	}
 
-	// USER
-	public static User createUser(User user) {
-		user.setId(users.size() + 1);
-		users.put(user.getId(), user);
-		return user;
-	}
-	public static void deleteUser(Integer id) {
-		users.remove(id);
-	}
-	public static User getUser(Integer id) {
-		return users.get(id);
-	}
-	public static Collection<User> findAllUsers() {
-		return users.values();
-	}
-
-	// ORDER
-	public static Collection<Order> findAllOrders() {
-		return orders.values();
-	}
-	public static Order createOrder(Order order) {
-		order.setId(orders.size() + 1);
-		orders.put(order.getId(), order);
-		return order;
-	}
-	public static Order getOrder(Integer id) {
-		return orders.get(id);
-	}
-
 	static {
-		User user = new User();
-		user.setAddress1("00 - Rue de Azerty");
-		user.setAddress1("Bâtiment R - Etage 1.25");
-		user.setFullname("Root User");
-		user.setZc("57872");
-		user.setState("France");
-		user.setPhone("+33705214896");
+		Shipment Normal = new Shipment(1);
+		Normal.setName("Normal");
+		Normal.setDelay(Period.ofDays(5));
+		Normal.setPrice(9.0);
 
-		Storage.createUser(user);
-
-
-		Shipment UPS = new Shipment(1);
-		UPS.setName("UPS");
-		UPS.setDelay(Period.ofDays(2));
-		UPS.setPrice(9.0);
-
-		Shipment Colissimo = new Shipment(2);
-		Colissimo.setName("Colissimo");
-		Colissimo.setDelay(Period.ofDays(10));
-		Colissimo.setPrice(0);
-
-		Shipment FedEx = new Shipment(3);
-		FedEx.setName("FedEx");
-		FedEx.setDelay(Period.ofDays(1));
-		FedEx.setPrice(15);
-
-		Storage.createShipment(UPS);
-		Storage.createShipment(Colissimo);
-		Storage.createShipment(FedEx);
+		Shipment Express = new Shipment(2);
+		Express.setName("Express");
+		Express.setDelay(Period.ofDays(1));
+		Express.setPrice(0);
 
 		Decoration leopard = new Decoration(1);
 		leopard.setName("Design Léopard");
@@ -119,9 +71,9 @@ public class Storage {
 		militaire.setPrice(-2);
 		militaire.setImage("http://i.ytimg.com/vi/8DIhCp1O52Q/hqdefault.jpg");
 
-		Storage.createDecoration(leopard);
-		Storage.createDecoration(zebre);
-		Storage.createDecoration(militaire);
+		TamtamStorage.createDecoration(leopard);
+		TamtamStorage.createDecoration(zebre);
+		TamtamStorage.createDecoration(militaire);
 
 		Tamtam tamtam = new Tamtam(1);
 		tamtam.setName("Tamtam 1");
@@ -129,13 +81,13 @@ public class Storage {
 		tamtam.setBrand("Tamtamarque");
 		tamtam.setSkin("Chèvre");
 		tamtam.setWood("Acajou");
-		tamtam.addShipment(UPS);
-		tamtam.addShipment(FedEx);
+		tamtam.addShipment(Normal);
+		tamtam.addShipment(Express);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 
 		tamtam = new Tamtam(2);
@@ -144,14 +96,14 @@ public class Storage {
 		tamtam.setBrand("Tamtamarque");
 		tamtam.setSkin("Biche");
 		tamtam.setWood("Acajou");
-		tamtam.addShipment(UPS);
-		tamtam.addShipment(Colissimo);
+		tamtam.addShipment(Normal);
+		tamtam.addShipment(Express);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 		tamtam = new Tamtam(3);
 		tamtam.setName("Tamtam 3");
@@ -159,13 +111,13 @@ public class Storage {
 		tamtam.setBrand("Tamtamarque");
 		tamtam.setSkin("Synthétique");
 		tamtam.setWood("Pommier");
-		tamtam.addShipment(Colissimo);
-		tamtam.addShipment(FedEx);
+		tamtam.addShipment(Normal);
+		tamtam.addShipment(Express);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 
 		tamtam = new Tamtam(4);
@@ -174,12 +126,12 @@ public class Storage {
 		tamtam.setBrand("Tamama");
 		tamtam.setSkin("Synthétique");
 		tamtam.setWood("Pommier");
-		tamtam.addShipment(FedEx);
+		tamtam.addShipment(Express);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 		tamtam = new Tamtam(5);
 		tamtam.setName("Tamtam 4 mé en mieu");
@@ -187,12 +139,12 @@ public class Storage {
 		tamtam.setBrand("Tamama");
 		tamtam.setSkin("Synthétique");
 		tamtam.setWood("Pommier");
-		tamtam.addShipment(Colissimo);
+		tamtam.addShipment(Normal);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 		tamtam = new Tamtam(6);
 		tamtam.setName("Tamtam 6");
@@ -200,12 +152,12 @@ public class Storage {
 		tamtam.setBrand("Tamama");
 		tamtam.setSkin("Chèvre");
 		tamtam.setWood("Pommier");
-		tamtam.addShipment(UPS);
+		tamtam.addShipment(Normal);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 
 		tamtam = new Tamtam(7);
 		tamtam.setName("Tamtamultime");
@@ -213,12 +165,12 @@ public class Storage {
 		tamtam.setBrand("Epictamtam");
 		tamtam.setSkin("Chèvre");
 		tamtam.setWood("Acajou");
-		tamtam.addShipment(UPS);
+		tamtam.addShipment(Normal);
 		tamtam.addDecoration(leopard);
 		tamtam.addDecoration(zebre);
 		tamtam.addDecoration(militaire);
 
-		Storage.createTamtam(tamtam);
+		TamtamStorage.createTamtam(tamtam);
 	}
 
 }

@@ -23,16 +23,28 @@
 http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
 http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd">
 
-    <jaxrs:server id="genService" address="/demo">
+    <!--Public-->
+    <jaxrs:server id="TamtamService" address="/tamtamers">
         <jaxrs:serviceBeans>
             <ref component-id="tamtamService"/>
             <ref component-id="orderService"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+    <!--Interne-->
+    <jaxrs:server id="UserService" address="/users">
+        <jaxrs:serviceBeans>
             <ref component-id="userService"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    <!--Interne-->
+    <jaxrs:server id="StockService" address="/stock">
+        <jaxrs:serviceBeans>
+            <ref component-id="stockService"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 
-    <bean id="tamtamService" class="fr.unice.polytech.soa1.cookbook.rest.TamtamService"/>
-    <bean id="orderService" class="fr.unice.polytech.soa1.cookbook.rest.OrderService"/>
-    <bean id="userService" class="fr.unice.polytech.soa1.cookbook.rest.UserService"/>
+    <bean id="tamtamService" class="fr.unice.polytech.soa1.tamtamers.rest.service.TamtamService"/>
+    <bean id="orderService" class="fr.unice.polytech.soa1.tamtamers.rest.service.OrderService"/>
+    <bean id="userService" class="fr.unice.polytech.soa1.tamtamers.rest.service.UserService"/>
 
 </blueprint>
