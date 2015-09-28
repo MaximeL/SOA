@@ -78,7 +78,7 @@ public class Storage {
 		user.setAddress1("00 - Rue de Azerty");
 		user.setAddress1("Bâtiment R - Etage 1.25");
 		user.setFullname("Root User");
-		user.setPc("57872");
+		user.setZc("57872");
 		user.setState("France");
 		user.setPhone("+33705214896");
 
