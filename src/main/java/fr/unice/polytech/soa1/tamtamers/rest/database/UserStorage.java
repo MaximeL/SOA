@@ -1,5 +1,6 @@
-package fr.unice.polytech.soa1.cookbook.rest;
+package fr.unice.polytech.soa1.tamtamers.rest.database;
 
+import fr.unice.polytech.soa1.tamtamers.rest.entity.User;
 
 import java.time.Period;
 import java.util.Collection;
@@ -48,7 +49,7 @@ public class UserStorage {
 		user.setState("France");
 		user.setPhone("+33705214896");
 
-		Storage.createUser(user);
+		UserStorage.createUser(user);
 
 		user = new User();
 		user.setAddress1("01 - Rue de la zouk");
@@ -58,7 +59,7 @@ public class UserStorage {
 		user.setState("France");
 		user.setPhone("+33706660734");
 
-		Storage.createUser(user);
+		UserStorage.createUser(user);
 
 	}
 
