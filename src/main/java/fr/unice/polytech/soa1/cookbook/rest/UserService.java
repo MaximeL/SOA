@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.HashMap;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +50,16 @@ public class UserService {
         User user = Storage.getUser(id);
         if(user != null) {
             return Response.ok().entity(user.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @GET
+    @Path("/{name}")
+    public Response getUser(@PathParam("name") String name) {
+        HashMap<Integer, User> users = Storage.getUser(name);
+        if(users.size() != 0) {
+            return Response.ok().entity(users.toString()).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
