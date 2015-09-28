@@ -1,4 +1,4 @@
-package fr.unice.polytech.soa1.tamtamers.rest.entity;
+package fr.unice.polytech.soa1.cookbook.rest;
 
 public class User {
     private int id;
