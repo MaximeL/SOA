@@ -42,9 +42,16 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
             <ref component-id="stockService"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
+    <jaxrs:server id="BankService" address="/bank">
+        <jaxrs:serviceBeans>
+            <ref component-id="paiementService"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
 
     <bean id="tamtamService" class="fr.unice.polytech.soa1.tamtamers.rest.service.TamtamService"/>
     <bean id="orderService" class="fr.unice.polytech.soa1.tamtamers.rest.service.OrderService"/>
     <bean id="userService" class="fr.unice.polytech.soa1.tamtamers.rest.service.UserService"/>
+    <bean id="paiementService" class="fr.unice.polytech.soa1.tamtamers.rest.service.PaiementService"/>
+
     <bean id="stockService" class="fr.unice.polytech.soa1.tamtamers.rest.service.StockService"/>
 </blueprint>
