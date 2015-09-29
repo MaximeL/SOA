@@ -37,7 +37,7 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
         </jaxrs:serviceBeans>
     </jaxrs:server>
     <!--Interne-->
-    <jaxrs:server id="StockService" address="/stock">
+    <jaxrs:server id="StockService" address="/entrepot">
         <jaxrs:serviceBeans>
             <ref component-id="stockService"/>
         </jaxrs:serviceBeans>

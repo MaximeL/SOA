@@ -1,8 +1,5 @@
 package fr.unice.polytech.soa1.tamtamers.rest.entity;
 
-/**
- * Created by sgregoire on 28/09/2015.
- */
 public class StockItem {
     private int itemId;
     private int numberInStock;
@@ -60,6 +57,10 @@ public class StockItem {
     public String toString()
     {
         // TODO
-        return super.toString();
+        return "{" +
+                "\"itemId\":" + this.getItemId() +
+                ",\"numberInStock\":" + this.getNumberInStock() +
+                ",\"timeTo\":" + "\"2 days\"" +
+            "}";
     }
 }
