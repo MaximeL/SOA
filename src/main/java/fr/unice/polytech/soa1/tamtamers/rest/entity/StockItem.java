@@ -4,12 +4,13 @@ public class StockItem {
     private int itemId;
     private int numberInStock;
     // TODO Un bon nom
-    private Object timeTo;
+    private String timeTo;
 
     private boolean disabled;
 
     public StockItem() {
-
+        // TODO
+        timeTo = "2 days";
     }
 
     public int getItemId() {
@@ -37,11 +38,11 @@ public class StockItem {
         this.numberInStock -= number;
     }
 
-    public Object getTimeTo() {
+    public String getTimeTo() {
         return timeTo;
     }
 
-    public void setTimeTo(Object timeTo) {
+    public void setTimeTo(String timeTo) {
         this.timeTo = timeTo;
     }
 
