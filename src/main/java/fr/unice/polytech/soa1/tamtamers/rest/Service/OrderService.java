@@ -16,6 +16,7 @@ import java.util.Collection;
 @Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderService {
+
     @GET
     public Response getOrders() {
         Collection<Order> orders = OrderStorage.findAllOrders();
@@ -28,37 +29,48 @@ public class OrderService {
 
     @POST
     public Response createOrder(
-            @QueryParam("tamtam") int idTamtam,
+            @QueryParam("tamtam") int[] tamtams,
             @QueryParam("shipment") int idShipment,
-            @QueryParam("decoration") int idDecoration,
+            @QueryParam("decoration") int[] decorations,
             @QueryParam("user") int idUser
     ) {
-        Tamtam tamtam = TamtamStorage.getTamtam(idTamtam);
-        Shipment shipment = TamtamStorage.getShipment(idShipment);
-        User user = UserStorage.getUser(idUser);
+        if(tamtams.length == decorations.length) {
+            Shipment shipment = TamtamStorage.getShipment(idShipment);
+            User user = UserStorage.getUser(idUser);
 
-        if(tamtam == null || shipment == null || user == null) {
+            if(shipment == null || user == null || tamtams == null || decorations == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+            Order order = new Order();
+
+            for(int i = 0; i < tamtams.length; i++) {
+                if(decorations[i] == -1) {
+                    order.addItem(tamtams[i]);
+                } else {
+                    order.addItem(tamtams[i], decorations[i]);
+                }
+            }
+/*
+            if(
+                    !(decoration != null && tamtam.getDecorations().containsKey(idDecoration)) ||
+                            !tamtam.getShipments().containsKey(shipment.getId())
+                    ) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }*/
+
+            order.setShipment(shipment);
+            order.setUser(user);
+
+            order.setPrice();
+
+            order = OrderStorage.createOrder(order);
+
+            return Response.ok().entity(order.toString()).build();
+        } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Decoration decoration = TamtamStorage.getDecoration(idDecoration);
-
-        if(
-            !(decoration != null && tamtam.getDecorations().containsKey(idDecoration)) ||
-            !tamtam.getShipments().containsKey(shipment.getId())
-        ) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        Order order = new Order();
-        order.setTamtam(tamtam);
-        order.setShipment(shipment);
-        order.setDecoration(decoration);
-        order.setUser(user);
-
-        order = OrderStorage.createOrder(order);
-
-        return Response.ok().entity(order.toString()).build();
     }
 
     @GET
