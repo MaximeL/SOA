@@ -38,6 +38,7 @@ public class PaymentService {
             payment.setAmount(amount);
             payment.setType(Payment.Type.CB);
             PaymentStorage.createPayment(payment);
+            order.getShipment().nextState();
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -54,6 +55,7 @@ public class PaymentService {
         payment.setAmount(order.getTotal());
 
         PaymentStorage.createPayment(payment);
+        order.getShipment().nextState();
         return Response.ok().build();
     }
 }
