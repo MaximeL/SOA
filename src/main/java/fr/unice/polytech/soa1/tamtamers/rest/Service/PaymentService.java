@@ -1,9 +1,10 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.database.PaiementStorage;
+import fr.unice.polytech.soa1.tamtamers.rest.database.PaymentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.Paiement;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.State;
 
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -18,7 +19,7 @@ public class PaymentService {
             @QueryParam("owner") String owner,
             @QueryParam("verification-code") String verificationCode,
             @QueryParam("order") Integer orderId,
-            @QueryParam("amount") Float amount,
+            @QueryParam("amount") Double amount
     ) {
         Order order = OrderStorage.getOrder(orderId);
         card = card.replaceAll(" ", "");
@@ -29,13 +30,13 @@ public class PaymentService {
                 verificationCode.length() == 3 ||
                 verificationCode.length() == 4
             ) &&
-            order.getTotal() == amount &&
-            order.getStatus() == Order.Status.WAITING
+            order.getPrice() == amount &&
+            order.getStatus() == State.WAITING_PAYMENT
         ) {
-            Paiement paiement = new Paiement(orderId);
+            Payment paiement = new Payment(orderId);
             paiement.setAmount(amount);
-            paiement.setType(Paiement.Type.CB);
-            PaiementStorage.createPaiement(paiement);
+            paiement.setType(Payment.Type.CB);
+            PaymentStorage.createPaiement(paiement);
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -46,12 +47,12 @@ public class PaymentService {
             @QueryParam("account") String paypallAccount,
             @QueryParam("order") Integer orderId
     ) {
-        Order order  OrderStorage.getOrder(orderId);
-        Paiement paiement = new Paiement(orderId);
-        paiement.setType(Paiement.Type.PAYPAL);
-        paiement.setAmount(order.getTotal());
+        Order order = OrderStorage.getOrder(orderId);
+        Payment payment = new Payment(orderId);
+        payment.setType(Payment.Type.PAYPAL);
+        payment.setAmount(order.getPrice());
 
-        PaiementStorage.createPaiement(paiement);
+        PaymentStorage.createPaiement(payment);
         return Response.ok().build();
     }
 }

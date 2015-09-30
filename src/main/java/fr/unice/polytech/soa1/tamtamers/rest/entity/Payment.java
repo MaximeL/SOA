@@ -2,7 +2,7 @@ package fr.unice.polytech.soa1.tamtamers.rest.entity;
 
 public class Payment {
     private int order;
-    private float amount;
+    private double amount;
     private String transaction;
     private Status status;
     private Type type;
@@ -20,11 +20,11 @@ public class Payment {
         this.order = order;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

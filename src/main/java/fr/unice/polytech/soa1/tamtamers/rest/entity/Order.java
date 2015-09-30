@@ -69,6 +69,10 @@ public class Order {
         return price;
     }
 
+    public State getStatus() {
+        return shipment.getState();
+    }
+
     @Override
     public String toString()
     {
