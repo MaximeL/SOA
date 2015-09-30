@@ -34,4 +34,14 @@ public class OrderStorage {
         }
         return result.values();
     }
+
+    public static Collection<Order> getStateOrders(String state) {
+        HashMap<Integer, Order> result = new HashMap<Integer, Order>();
+        for(Map.Entry<Integer, Order> entry : orders.entrySet()) {
+            Integer key = entry.getKey();
+            Order value = entry.getValue();
+            if(value.getStatus().equals(state) && !result.containsKey(key)) result.put(key, value);
+        }
+        return result.values();
+    }
 }

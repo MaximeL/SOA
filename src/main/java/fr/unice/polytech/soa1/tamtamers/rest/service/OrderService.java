@@ -84,8 +84,8 @@ public class OrderService {
     }
 
     @GET
-    @Path("/user/{id}")
-    public Response getUserOrders(@PathParam("id") int id) {
+    @Path("/{user}")
+    public Response getUserOrders(@PathParam("user") int id) {
         Collection<Order> orders = OrderStorage.getUserOrders(id);
         JSONArray result = new JSONArray();
         for(Order order: orders) {
@@ -93,4 +93,16 @@ public class OrderService {
         }
         return Response.ok().entity(result.toString()).build();
     }
+
+    @GET
+    @Path("/{state}")
+    public Response getStateOrders(@PathParam("state") String state) {
+        Collection<Order> orders = OrderStorage.getStateOrders(state);
+        JSONArray result = new JSONArray();
+        for(Order order: orders) {
+            result.put(new JSONObject(order.toString()));
+        }
+        return Response.ok().entity(result.toString()).build();
+    }
+
 }
