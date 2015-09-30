@@ -1,10 +1,8 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.database.PaiementStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.PaymentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.Paiement;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
 
 import javax.ws.rs.PUT;
