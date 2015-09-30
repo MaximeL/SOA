@@ -4,7 +4,7 @@ import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.PaymentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.State;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Status;
 
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -31,13 +31,13 @@ public class PaymentService {
                 verificationCode.length() == 4
             ) &&
             order.getPrice() == amount &&
-            order.getStatus() == State.WAITING_PAYMENT
+            order.getStatus() == Status.WAITING_PAYMENT
         ) {
             Payment payment = new Payment(orderId);
             payment.setAmount(amount);
             payment.setType(Payment.Type.CB);
             PaymentStorage.createPayment(payment);
-            order.getShipment().nextState();
+            order.nextStatus();
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -54,7 +54,7 @@ public class PaymentService {
         payment.setAmount(order.getPrice());
 
         PaymentStorage.createPayment(payment);
-        order.getShipment().nextState();
+        order.nextStatus();
         return Response.ok().build();
     }
 }

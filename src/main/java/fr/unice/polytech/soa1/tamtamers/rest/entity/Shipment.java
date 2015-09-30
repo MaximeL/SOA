@@ -7,11 +7,9 @@ public class Shipment {
     private String name;
     private double price;
     private Period delay;
-    private State state;
 
     public Shipment(int id) {
         this.id = id;
-        this.state = State.WAITING_PAYMENT;
     }
 
     public int getId() {
@@ -44,41 +42,6 @@ public class Shipment {
 
     public void setDelay(Period delay) {
         this.delay = delay;
-    }
-
-    public State getState() {
-        return this.state;
-    }
-
-    public void nextState() {
-        switch (this.state) {
-            case WAITING_PAYMENT:
-                this.state = State.PREPARING_SHIPMENT;
-                break;
-
-            case PREPARING_SHIPMENT:
-                this.state = State.SHIPING;
-                break;
-
-            default:
-                this.state = State.ARCHIVED;
-                break;
-        }
-    }
-    public void previousState() {
-        switch (this.state) {
-            case ARCHIVED:
-                this.state = State.SHIPING;
-                break;
-
-            case SHIPING:
-                this.state = State.PREPARING_SHIPMENT;
-                break;
-
-            default:
-                this.state = State.WAITING_PAYMENT;
-                break;
-        }
     }
 
     @Override

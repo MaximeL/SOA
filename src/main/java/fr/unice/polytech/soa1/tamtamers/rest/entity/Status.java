@@ -1,6 +1,6 @@
 package fr.unice.polytech.soa1.tamtamers.rest.entity;
 
-public enum State {
+public enum Status {
 
     WAITING_PAYMENT ("Waiting Payment"),
     PREPARING_SHIPMENT ("Preparing Shipement"),
@@ -8,7 +8,7 @@ public enum State {
     ARCHIVED ("Archived");
 
     private final String val;
-    State(String val) {
+    Status(String val) {
         this.val = val;
     }
 

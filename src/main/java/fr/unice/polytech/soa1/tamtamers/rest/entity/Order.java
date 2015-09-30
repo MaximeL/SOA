@@ -8,6 +8,11 @@ public class Order {
     private ArrayList<Item> items;
     private User user;
     private double price;
+    private Status status;
+
+    public Order() {
+        this.status = Status.WAITING_PAYMENT;
+    }
 
     public int getId() {
         return id;
@@ -69,8 +74,40 @@ public class Order {
         return price;
     }
 
-    public State getStatus() {
-        return shipment.getState();
+
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public void nextStatus() {
+        switch (this.status) {
+            case WAITING_PAYMENT:
+                this.status = Status.PREPARING_SHIPMENT;
+                break;
+
+            case PREPARING_SHIPMENT:
+                this.status = Status.SHIPING;
+                break;
+
+            default:
+                this.status = Status.ARCHIVED;
+                break;
+        }
+    }
+    public void previousStatus() {
+        switch (this.status) {
+            case ARCHIVED:
+                this.status = Status.SHIPING;
+                break;
+
+            case SHIPING:
+                this.status = Status.PREPARING_SHIPMENT;
+                break;
+
+            default:
+                this.status = Status.WAITING_PAYMENT;
+                break;
+        }
     }
 
     @Override
@@ -87,6 +124,7 @@ public class Order {
                 ", \"items\":" +itm +
                 ", \"shipment\":" + shipment.toString() +
                 ", \"price\":" + price +
+                ", \"status\":" + status +
             "}";
     }
 }
