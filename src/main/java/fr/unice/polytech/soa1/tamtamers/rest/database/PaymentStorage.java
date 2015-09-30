@@ -10,15 +10,15 @@ public class PaymentStorage {
     private static HashMap<Integer, Payment> paiements = new HashMap<Integer, Payment>();
 
     // PAIMENTS
-    public static Collection<Payment> findAllPaiements() {
+    public static Collection<Payment> findAllPayments() {
         return paiements.values();
     }
 
-    public static Payment getPaiementOfOrder(Integer order) {
+    public static Payment getPaymentOfOrder(Integer order) {
         return paiements.get(order);
     }
 
-    public static void createPaiement(Payment payment) {
+    public static void createPayment(Payment payment) {
         Random random = new Random();
         payment.setTransaction(String.valueOf(random.nextLong()));
         payment.setStatus(Payment.Status.VALID);

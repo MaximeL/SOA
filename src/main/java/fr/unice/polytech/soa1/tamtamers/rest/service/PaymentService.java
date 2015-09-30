@@ -33,10 +33,11 @@ public class PaymentService {
             order.getPrice() == amount &&
             order.getStatus() == State.WAITING_PAYMENT
         ) {
-            Payment paiement = new Payment(orderId);
-            paiement.setAmount(amount);
-            paiement.setType(Payment.Type.CB);
-            PaymentStorage.createPaiement(paiement);
+            Payment payment = new Payment(orderId);
+            payment.setAmount(amount);
+            payment.setType(Payment.Type.CB);
+            PaymentStorage.createPayment(payment);
+            order.getShipment().nextState();
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -52,7 +53,8 @@ public class PaymentService {
         payment.setType(Payment.Type.PAYPAL);
         payment.setAmount(order.getPrice());
 
-        PaymentStorage.createPaiement(payment);
+        PaymentStorage.createPayment(payment);
+        order.getShipment().nextState();
         return Response.ok().build();
     }
 }
