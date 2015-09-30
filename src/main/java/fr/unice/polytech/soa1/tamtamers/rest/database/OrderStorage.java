@@ -4,6 +4,7 @@ import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sgregoire on 28/09/2015.
@@ -22,5 +23,15 @@ public class OrderStorage {
     }
     public static Order getOrder(Integer id) {
         return orders.get(id);
+    }
+
+    public static Collection<Order> getUserOrders(int id) {
+        HashMap<Integer, Order> result = new HashMap<Integer, Order>();
+        for(Map.Entry<Integer, Order> entry : orders.entrySet()) {
+            Integer key = entry.getKey();
+            Order value = entry.getValue();
+            if(value.getId() == id && !result.containsKey(key)) result.put(key, value);
+        }
+        return result.values();
     }
 }

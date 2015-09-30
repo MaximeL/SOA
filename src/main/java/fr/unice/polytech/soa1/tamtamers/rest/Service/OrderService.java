@@ -82,4 +82,15 @@ public class OrderService {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @GET
+    @Path("/user/{id}")
+    public Response getUserOrders(@PathParam("id") int id) {
+        Collection<Order> orders = OrderStorage.getUserOrders(id);
+        JSONArray result = new JSONArray();
+        for(Order order: orders) {
+            result.put(new JSONObject(order.toString()));
+        }
+        return Response.ok().entity(result.toString()).build();
+    }
 }
