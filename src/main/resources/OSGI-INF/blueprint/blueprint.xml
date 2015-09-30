@@ -37,7 +37,7 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
         </jaxrs:serviceBeans>
     </jaxrs:server>
     <!--Interne-->
-    <jaxrs:server id="StockService" address="/stock">
+    <jaxrs:server id="StockService" address="/entrepot">
         <jaxrs:serviceBeans>
             <ref component-id="stockService"/>
         </jaxrs:serviceBeans>
@@ -46,5 +46,5 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
     <bean id="tamtamService" class="fr.unice.polytech.soa1.tamtamers.rest.service.TamtamService"/>
     <bean id="orderService" class="fr.unice.polytech.soa1.tamtamers.rest.service.OrderService"/>
     <bean id="userService" class="fr.unice.polytech.soa1.tamtamers.rest.service.UserService"/>
-
+    <bean id="stockService" class="fr.unice.polytech.soa1.tamtamers.rest.service.StockService"/>
 </blueprint>
