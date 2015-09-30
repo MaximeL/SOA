@@ -2,6 +2,7 @@ package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.UserStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.User;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-// TODO : Sébastien Pas de verbe
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserService {
@@ -54,6 +54,17 @@ public class UserService {
             return Response.ok().entity(user.toString()).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    @GET
+    @Path("/{name}")
+    public Response getUser(@PathParam("name") String name) {
+        Collection<User> users = UserStorage.getUser(name);
+        JSONArray result = new JSONArray();
+        for(User user : users) {
+            result.put(new JSONObject(user.minToString()));
+        }
+        return Response.ok().entity(result.toString()).build();
     }
 
     @DELETE

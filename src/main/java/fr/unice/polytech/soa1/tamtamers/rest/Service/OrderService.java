@@ -1,5 +1,6 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
+import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.TamtamStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.UserStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.*;
@@ -17,7 +18,7 @@ import java.util.Collection;
 public class OrderService {
     @GET
     public Response getOrders() {
-        Collection<Order> orders = TamtamStorage.findAllOrders();
+        Collection<Order> orders = OrderStorage.findAllOrders();
         JSONArray result = new JSONArray();
         for(Order order: orders) {
             result.put(new JSONObject(order.toString()));
@@ -55,7 +56,7 @@ public class OrderService {
         order.setDecoration(decoration);
         order.setUser(user);
 
-        order = TamtamStorage.createOrder(order);
+        order = OrderStorage.createOrder(order);
 
         return Response.ok().entity(order.toString()).build();
     }
@@ -63,7 +64,7 @@ public class OrderService {
     @GET
     @Path("/{id}")
     public Response getOrder(@PathParam("id") int id) {
-        Order order = TamtamStorage.getOrder(id);
+        Order order = OrderStorage.getOrder(id);
         if(order != null) {
             return Response.ok().entity(order.toString()).build();
         }
