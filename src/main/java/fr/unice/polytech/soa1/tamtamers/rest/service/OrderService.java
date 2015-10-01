@@ -11,6 +11,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 // TODO : S�bastien Pas de verbe
 @Path("/orders")
@@ -50,6 +52,18 @@ public class OrderService {
                 } else {
                     order.addItem(tamtams[i], decorations[i]);
                 }
+                Tamtam tmp = TamtamStorage.getTamtam(tamtams[i]);
+                HashMap<Integer, Shipment> hship = tmp.getShipments();
+                boolean oneGood = false;
+
+                for(Map.Entry<Integer, Shipment> ship : hship.entrySet()) {
+
+                    Integer key = ship.getKey();
+                    Shipment value = ship.getValue();
+                    if(value.getId() == idShipment) oneGood = true;
+                }
+
+                if(!oneGood) return Response.status(Response.Status.BAD_REQUEST).build();
             }
 /*
             if(

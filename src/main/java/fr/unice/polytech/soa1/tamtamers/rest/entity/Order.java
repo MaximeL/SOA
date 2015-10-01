@@ -74,7 +74,6 @@ public class Order {
         return price;
     }
 
-
     public Status getStatus() {
         return this.status;
     }
@@ -94,6 +93,7 @@ public class Order {
                 break;
         }
     }
+
     public void previousStatus() {
         switch (this.status) {
             case ARCHIVED:
@@ -110,6 +110,7 @@ public class Order {
         }
     }
 
+
     @Override
     public String toString()
     {
@@ -125,6 +126,7 @@ public class Order {
                 ", \"shipment\":" + shipment.toString() +
                 ", \"price\":" + price +
                 ", \"status\":" + status +
+                ", \"user\":" + user +
             "}";
     }
 }
