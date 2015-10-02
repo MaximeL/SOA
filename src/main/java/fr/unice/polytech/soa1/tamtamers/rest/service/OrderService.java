@@ -109,9 +109,9 @@ public class OrderService {
     }
 
     @GET
-    @Path("/{state}")
-    public Response getStateOrders(@PathParam("state") String state) {
-        Collection<Order> orders = OrderStorage.getStateOrders(state);
+    @Path("/{status}")
+    public Response getStateOrders(@PathParam("status") String state) {
+        Collection<Order> orders = OrderStorage.getStatusOrders(state);
         JSONArray result = new JSONArray();
         for(Order order: orders) {
             result.put(new JSONObject(order.toString()));

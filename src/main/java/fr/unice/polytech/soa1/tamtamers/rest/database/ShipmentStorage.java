@@ -30,18 +30,59 @@ public class ShipmentStorage {
     public static Collection<Shipment> findAllShipments() {
         return shipments.values();
     }
+    public static Shipment getExpress() {
+        Shipment best = null;
+        for(Map.Entry<Integer, Shipment> elmt : shipments.entrySet()) {
+            Integer key = elmt.getKey();
+            Shipment value = elmt.getValue();
+            if(value.getPrice() > 0 && best == null) {
+                best = value;
+                continue;
+            } else if (best == null || value.getPrice() == 0) {
+                continue;
+            } else if (value.getPrice() > best.getPrice()) {
+                best = value;
+                continue;
+            }
+
+        }
+        return best;
+
+    }
+    public static Shipment getNormal() {
+        Shipment best = null;
+        for(Map.Entry<Integer, Shipment> elmt : shipments.entrySet()) {
+            Integer key = elmt.getKey();
+            Shipment value = elmt.getValue();
+            if(value.getPrice() == 0 && best == null) {
+                best = value;
+            }
+
+        }
+        return best;
+
+    }
 
     static {
         Shipment shipment = new Shipment(0);
         shipment.setName("UPS");
         shipment.setPrice(5);
         shipment.setDelay(Period.ofDays(2));
+        shipment.setAvailable(true);
+        ShipmentStorage.createShipment(shipment);
+
+        shipment = new Shipment(0);
+        shipment.setName("FedEx");
+        shipment.setPrice(5);
+        shipment.setDelay(Period.ofDays(3));
+        shipment.setAvailable(false);
         ShipmentStorage.createShipment(shipment);
 
         shipment = new Shipment(1);
         shipment.setName("La Poste");
         shipment.setPrice(0);
         shipment.setDelay(Period.ofDays(5));
+        shipment.setAvailable(true);
         ShipmentStorage.createShipment(shipment);
 
     }

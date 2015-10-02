@@ -35,7 +35,7 @@ public class OrderStorage {
         return result.values();
     }
 
-    public static Collection<Order> getStateOrders(String state) {
+    public static Collection<Order> getStatusOrders(String state) {
         HashMap<Integer, Order> result = new HashMap<Integer, Order>();
         for(Map.Entry<Integer, Order> entry : orders.entrySet()) {
             Integer key = entry.getKey();
@@ -43,5 +43,9 @@ public class OrderStorage {
             if(value.getStatus().equals(state) && !result.containsKey(key)) result.put(key, value);
         }
         return result.values();
+    }
+
+    public static Collection<Order> getShipingPlaceOrders(int orderId) {
+        return null;
     }
 }

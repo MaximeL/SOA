@@ -7,6 +7,7 @@ public class Shipment {
     private String name;
     private double price;
     private Period delay;
+    private boolean available;
 
     public Shipment(int id) {
         this.id = id;
@@ -42,6 +43,14 @@ public class Shipment {
 
     public void setDelay(Period delay) {
         this.delay = delay;
+    }
+
+    public boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override
