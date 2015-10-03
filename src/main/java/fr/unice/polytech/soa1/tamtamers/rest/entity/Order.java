@@ -61,7 +61,7 @@ public class Order {
         items.add(item);
     }
 
-    public void setPrice() {
+    public void computePrice() {
         price = 0;
 
         if(shipment != null) price += shipment.getPrice();
@@ -87,6 +87,7 @@ public class Order {
 
             case PREPARING_SHIPMENT:
                 this.status = Status.SHIPING;
+                this.shipment.generateCodeTracking();
                 break;
 
             default:
@@ -117,10 +118,11 @@ public class Order {
     {
         String itm = "[";
         for(Item item : items) {
-            itm += item+",";
+            itm += item.toString()+",";
         }
         itm = itm.substring(0, itm.length()-1);
         itm += "]";
+
         return "{" +
                 "\"id\":" + id +
                 ", \"items\":" +itm +
@@ -130,4 +132,6 @@ public class Order {
                 ", \"user\":" + user +
             "}";
     }
+
+
 }

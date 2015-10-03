@@ -3,14 +3,12 @@ package fr.unice.polytech.soa1.tamtamers.rest.entity;
 public class StockItem {
     private int itemId;
     private int numberInStock;
-    // TODO Un bon nom
-    private String timeTo;
+    private String supplying;
 
     private boolean disabled;
 
     public StockItem() {
-        // TODO
-        timeTo = "2 days";
+        supplying = "2 days";
     }
 
     public int getItemId() {
@@ -38,12 +36,12 @@ public class StockItem {
         this.numberInStock -= number;
     }
 
-    public String getTimeTo() {
-        return timeTo;
+    public String getSupplying() {
+        return supplying;
     }
 
-    public void setTimeTo(String timeTo) {
-        this.timeTo = timeTo;
+    public void setSupplying(String supplying) {
+        this.supplying = supplying;
     }
 
     public boolean isDisabled() {
@@ -57,11 +55,10 @@ public class StockItem {
     @Override
     public String toString()
     {
-        // TODO
         return "{" +
                 "\"itemId\":" + this.getItemId() +
                 ",\"numberInStock\":" + this.getNumberInStock() +
-                ",\"timeTo\":" + "\"2 days\"" +
+                ",\"supplying\":" + "\"" + this.getSupplying() +"\"" +
             "}";
     }
 }
