@@ -1,23 +1,17 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
+import fr.unice.polytech.soa1.tamtamers.rest.database.ShipmentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.TamtamStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.UserStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.Shipment;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.Tamtam;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.User;
-
+import fr.unice.polytech.soa1.tamtamers.rest.entity.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -130,70 +124,66 @@ public class UserService {
 
     /**
      * (POST /{id}/orders) Create a new order
-     * @param id           int    (QUERY)  id of the customer who ordered
-     * @param tamtams      int[]  (QUERY)  ids of the tamtams in correlation with the decorations
-     * @param idShipment   int    (QUERY)  id of the selected shipment
-     * @param decorations  int[]  (QUERY)  ids of the decoration in corelation with the tamtams
      * @return Response
      */
     @POST
     @Path("/{id}/orders")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createOrder(
             @PathParam("id") int id,
-            @QueryParam("tamtam") int[] tamtams,
-            @QueryParam("shipment") int idShipment,
-            @QueryParam("decoration") int[] decorations
+            @HeaderParam("order") JSONObject data
     ) {
-        if(tamtams.length == decorations.length) {
-            Shipment shipment = TamtamStorage.getShipment(idShipment);
-            User user = UserStorage.findUserById(id);
+        User user = UserStorage.findUserById(id);
+        Integer shipmentId;
 
-            System.out.println(tamtams);
-            System.out.println(decorations);
-            if(shipment == null || user == null || tamtams == null || decorations == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
+        if(data.has("shipment") || user != null) {
+            shipmentId = (Integer) data.get("shipment");
+            Shipment shipment = ShipmentStorage.getShipment(shipmentId);
 
-            Order order = new Order();
+            if(data.has("items")) {
+                JSONArray items = data.getJSONArray("items");
+                JSONObject object;
 
-            for(int i = 0; i < tamtams.length; i++) {
-                if(decorations[i] == -1) {
-                    order.addItem(tamtams[i]);
-                } else {
-                    order.addItem(tamtams[i], decorations[i]);
+                Order order = new Order();
+
+                for(int i = 0; i < data.length(); i++) {
+                    object = items.getJSONObject(i);
+
+                    if(object.has("tamtam") && object.has("decoration")) {
+                        Integer tamtamId = (Integer) object.get("tamtam");
+                        Integer decorationId = (Integer) object.get("decoration");
+
+                        Tamtam tamtam = TamtamStorage.getTamtam(tamtamId);
+                        Decoration decoration = TamtamStorage.getDecoration(decorationId);
+
+                        if(tamtam != null || decoration != null) {
+                            order.addItem(tamtamId, decorationId);
+                        } else {
+                            return Response.status(Response.Status.NOT_FOUND).build();
+                        }
+                    } else if(object.has("tamtam")) {
+                        Integer tamtamId = (Integer) object.get("tamtam");
+                        Tamtam tamtam = TamtamStorage.getTamtam(tamtamId);
+
+                        if(tamtam != null) {
+                            order.addItem(tamtamId);
+                        } else {
+                            return Response.status(Response.Status.NOT_FOUND).build();
+                        }
+                    } else {
+                        return Response.status(Response.Status.NOT_FOUND).build();
+                    }
                 }
-                Tamtam tmp = TamtamStorage.getTamtam(tamtams[i]);
-                HashMap<Integer, Shipment> hship = tmp.getShipments();
-                boolean oneGood = false;
+                order.setUser(user);
+                order.computePrice();
+                order.setShipment(shipment);
 
-                for(Map.Entry<Integer, Shipment> ship : hship.entrySet()) {
+                OrderStorage.createOrder(order);
 
-                    Integer key = ship.getKey();
-                    Shipment value = ship.getValue();
-                    if(value.getId() == idShipment) oneGood = true;
-                }
-
-                if(!oneGood) return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response.ok().build();
             }
-/*
-            if(
-                    !(decoration != null && tamtam.getDecorations().containsKey(idDecoration)) ||
-                            !tamtam.getShipments().containsKey(shipment.getId())
-                    ) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }*/
-
-            order.setShipment(shipment);
-            order.setUser(user);
-
-            order.setPrice();
-
-            order = OrderStorage.createOrder(order);
-
-            return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/orders/" + order.getId())).build();
-        } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     /**
