@@ -39,7 +39,7 @@ public class TamtamService {
      * @param id  int  (PATH)  Tamtam's id you're looking for
      * @return Response JSon format
      */
-    @Path("/{id}")
+    @Path("/{id}/search")
     @GET
     public Response getTamtam(@PathParam("id") int id) {
         Tamtam tamtam = TamtamStorage.getTamtam(id);

@@ -188,6 +188,7 @@ public class UserService {
 
     /**
      * (POST /{id}/orders) Create a new order
+     * @param id  int  (PATH)  id of th eorder
      * @return Response
      */
     @GET
