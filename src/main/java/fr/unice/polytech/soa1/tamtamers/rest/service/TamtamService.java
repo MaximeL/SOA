@@ -12,13 +12,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 // TODO : Sébastien Pas de verbe
+
 @Path("/tamtams")
 @Produces(MediaType.APPLICATION_JSON)
+/**
+ * (PATH /tamtams) Services about the tamtams
+ */
 public class TamtamService {
 
     /**
-     * Liste des tamtams
-     * @return Response
+     * (GET) Retourne la liste de tout les tamtam de la base de donnée
+     * @return Response JSon format
      */
     @GET
     public Response getAvailableTamtams() {
@@ -31,9 +35,9 @@ public class TamtamService {
     }
 
     /**
-     * Détail d'un tamtam
-     * @param id int
-     * @return Ressource
+     * (GET) Detail of a tamtam regarding his id
+     * @param id  int  (PATH)  Tamtam's id you're looking for
+     * @return Response JSon format
      */
     @Path("/{id}")
     @GET
@@ -47,11 +51,11 @@ public class TamtamService {
 
 
     /**
-     * Search for tamtam(s) that fit the parameters.
-     * @param brand String
-     * @param skin String
-     * @param wood String
-     * @return Object Tamtams with an array "tamtam" of Tamtam.
+     * (GET /search) Search for tamtam(s) that fit the parameters.
+     * @param brand  String   (QUERY) name of the brand
+     * @param skin   String   (QUERY) name of the skin
+     * @param wood   String   (QUERY)name of the wood
+     * @return Response JSon format
      */
     @Path("/search")
     @GET
@@ -73,6 +77,10 @@ public class TamtamService {
         return Response.ok().entity(result.toString(2)).build();
     }
 
+    /**
+     * (GET /types) Return all the caracteristics that the tamtam can have. List the woods, skins and brands.
+     * @return Response JSon format
+     */
     @Path("/types")
     @GET
     public Response getTypes()

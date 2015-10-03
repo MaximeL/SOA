@@ -10,12 +10,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * Created by sgregoire on 28/09/2015.
+ * Servic for the shipment
  */
 @Path("/stock")
 @Produces(MediaType.APPLICATION_JSON)
 public class ShipmentService {
 
+    /**
+     * (GET /express) Return the best express shipment service
+     * @return Response JSon format
+     */
     @GET
     @Path("/express")
     public Response getExpress() {
@@ -27,6 +31,10 @@ public class ShipmentService {
         return Response.ok().entity(res.toString()).build();
     }
 
+    /**
+     * (GET /normal) Return the best normal shipement
+     * @return Response JSon format
+     */
     @GET
     @Path("/normal")
     public Response getNormal() {

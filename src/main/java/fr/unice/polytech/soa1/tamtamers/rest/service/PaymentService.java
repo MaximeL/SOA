@@ -11,8 +11,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-@Path("paiement")
+/**
+ * (PATH /payment) Service for the payment
+ */
+@Path("/payment")
 public class PaymentService {
+
+    /**
+     * (PUT) Payment by creditcard
+     * @param card              String   (QUERY)  card number
+     * @param owner             String   (QUERY)  owner name
+     * @param verificationCode  String   (QUERY)  verification code
+     * @param orderId           Integer  (QUERY)  id of the customer
+     * @param amount            Double   (QUERY)  amount payed
+     * @return Response JSon format
+     */
     @PUT
     public Response payCB(
             @QueryParam("cardnumber") String card,
@@ -43,6 +56,12 @@ public class PaymentService {
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+    /**
+     * (PUT) Payment by PayPal
+     * @param paypallAccount  String   (QUERY)  name of the PayPal account
+     * @param orderId         Integer  (QUERY)  id of the order
+     * @return Response JSon format
+     */
     @PUT
     public Response payPaypall(
             @QueryParam("account") String paypallAccount,

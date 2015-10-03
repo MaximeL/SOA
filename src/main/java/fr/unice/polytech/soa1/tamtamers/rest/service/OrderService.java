@@ -14,11 +14,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO : S�bastien Pas de verbe
+// TODO : Sebastien Pas de verbe
+
+/**
+ * (PATH /orders) Service for the orders
+ */
 @Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderService {
 
+    /**
+     * (GET) Return all the orders in the database
+     * @return Response JSon format
+     */
     @GET
     public Response getOrders() {
         Collection<Order> orders = OrderStorage.findAllOrders();
@@ -29,7 +37,16 @@ public class OrderService {
         return Response.ok().entity(result.toString()).build();
     }
 
+    /**
+     * (POST /add) Create a new order
+     * @param tamtams      int[]  (QUERY)  ids of the tamtams in correlation with the decorations
+     * @param idShipment   int    (QUERY)  id of the selected shipment
+     * @param decorations  int[]  (QUERY)  ids of the decoration in corelation with the tamtams
+     * @param idUser       int    (QUERY)  id of the customer who ordered
+     * @return Response
+     */
     @POST
+    @Path("/add")
     public Response createOrder(
             @QueryParam("tamtam") int[] tamtams,
             @QueryParam("shipment") int idShipment,
@@ -87,6 +104,11 @@ public class OrderService {
 
     }
 
+    /**
+     * (GET) Return an order knowing his id
+     * @param id  int  (PATH)  id of the order
+     * @return Response JSon format
+     */
     @GET
     @Path("/{id}")
     public Response getOrder(@PathParam("id") int id) {
@@ -97,6 +119,11 @@ public class OrderService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * (GET) Return all the orders of an user
+     * @param id  int  (PATH)  id of the user
+     * @return Response JSon format
+     */
     @GET
     @Path("/{user}")
     public Response getUserOrders(@PathParam("user") int id) {
@@ -108,6 +135,11 @@ public class OrderService {
         return Response.ok().entity(result.toString()).build();
     }
 
+    /**
+     * (GET) Get all the order that are in a given state
+     * @param state  String  (PATH)  Name of the state
+     * @return Response JSon format
+     */
     @GET
     @Path("/{status}")
     public Response getStateOrders(@PathParam("status") String state) {
