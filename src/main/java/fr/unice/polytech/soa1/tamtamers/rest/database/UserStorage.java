@@ -21,11 +21,14 @@ public class UserStorage {
 	public static void deleteUser(Integer id) {
 		users.remove(id);
 	}
-	public static User getUser(Integer id) {
+	public static User findUserById(Integer id) {
 		return users.get(id);
 	}
-    public static Collection<User> getUser(String search) {
+
+	// TODO : Marche pas
+	public static Collection<User> findUserByName(String search) {
         String[] tmp = search.split(" ");
+
         HashMap<Integer, User> result = new HashMap<Integer, User>();
         for(String match : tmp) {
             for(Map.Entry<Integer, User> entry : users.entrySet()) {

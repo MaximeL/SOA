@@ -6,9 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by sgregoire on 28/09/2015.
- */
 public class OrderStorage {
     private static HashMap<Integer, Order> orders = new HashMap<Integer, Order>();
 
@@ -30,7 +27,9 @@ public class OrderStorage {
         for(Map.Entry<Integer, Order> entry : orders.entrySet()) {
             Integer key = entry.getKey();
             Order value = entry.getValue();
-            if(value.getId() == id && !result.containsKey(key)) result.put(key, value);
+            if(value.getId() == id && !result.containsKey(key)) {
+                result.put(key, value);
+            }
         }
         return result.values();
     }
@@ -47,5 +46,15 @@ public class OrderStorage {
 
     public static Collection<Order> getShipingPlaceOrders(int orderId) {
         return null;
+    }
+
+
+    static {
+        Order order = new Order();
+        order.addItem(1);
+        order.setShipment(ShipmentStorage.getExpress());
+        order.setUser(UserStorage.findUserById(1));
+        createOrder(order);
+        TamtamStorage.getTamtam(1);
     }
 }

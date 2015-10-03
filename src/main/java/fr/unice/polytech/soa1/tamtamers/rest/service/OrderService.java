@@ -1,18 +1,17 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.database.TamtamStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.database.UserStorage;
-import fr.unice.polytech.soa1.tamtamers.rest.entity.*;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 // TODO : Sebastien Pas de verbe
 
@@ -35,73 +34,6 @@ public class OrderService {
             result.put(new JSONObject(order.toString()));
         }
         return Response.ok().entity(result.toString()).build();
-    }
-
-    /**
-     * (POST /add) Create a new order
-     * @param tamtams      int[]  (QUERY)  ids of the tamtams in correlation with the decorations
-     * @param idShipment   int    (QUERY)  id of the selected shipment
-     * @param decorations  int[]  (QUERY)  ids of the decoration in corelation with the tamtams
-     * @param idUser       int    (QUERY)  id of the customer who ordered
-     * @return Response
-     */
-    @POST
-    @Path("/add")
-    public Response createOrder(
-            @QueryParam("tamtam") int[] tamtams,
-            @QueryParam("shipment") int idShipment,
-            @QueryParam("decoration") int[] decorations,
-            @QueryParam("user") int idUser
-    ) {
-        if(tamtams.length == decorations.length) {
-            Shipment shipment = TamtamStorage.getShipment(idShipment);
-            User user = UserStorage.getUser(idUser);
-
-            if(shipment == null || user == null || tamtams == null || decorations == null) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-
-            Order order = new Order();
-
-            for(int i = 0; i < tamtams.length; i++) {
-                if(decorations[i] == -1) {
-                    order.addItem(tamtams[i]);
-                } else {
-                    order.addItem(tamtams[i], decorations[i]);
-                }
-                Tamtam tmp = TamtamStorage.getTamtam(tamtams[i]);
-                HashMap<Integer, Shipment> hship = tmp.getShipments();
-                boolean oneGood = false;
-
-                for(Map.Entry<Integer, Shipment> ship : hship.entrySet()) {
-
-                    Integer key = ship.getKey();
-                    Shipment value = ship.getValue();
-                    if(value.getId() == idShipment) oneGood = true;
-                }
-
-                if(!oneGood) return Response.status(Response.Status.BAD_REQUEST).build();
-            }
-/*
-            if(
-                    !(decoration != null && tamtam.getDecorations().containsKey(idDecoration)) ||
-                            !tamtam.getShipments().containsKey(shipment.getId())
-                    ) {
-                return Response.status(Response.Status.BAD_REQUEST).build();
-            }*/
-
-            order.setShipment(shipment);
-            order.setUser(user);
-
-            order.setPrice();
-
-            order = OrderStorage.createOrder(order);
-
-            return Response.ok().entity(order.toString()).build();
-        } else {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
     }
 
     /**

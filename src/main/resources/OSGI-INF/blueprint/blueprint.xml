@@ -28,11 +28,6 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
         <jaxrs:serviceBeans>
             <ref component-id="tamtamService"/>
             <ref component-id="orderService"/>
-        </jaxrs:serviceBeans>
-    </jaxrs:server>
-    <!--Interne-->
-    <jaxrs:server id="UserService" address="/users">
-        <jaxrs:serviceBeans>
             <ref component-id="userService"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
