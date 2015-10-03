@@ -193,7 +193,7 @@ public class UserService {
      */
     @GET
     @Path("/{id}/orders")
-    public Response createOrder(
+    public Response getOrders(
             @PathParam("id") int id
     ) {
         Collection<Order> orders = OrderStorage.getUserOrders(id);
