@@ -41,7 +41,7 @@ public class StockService {
      * @return Response JSon format
      */
     @GET
-    @Path("/{id}")
+    @Path("/{id}/search")
     public Response getStockOf(@PathParam("id") int id) {
         StockItem stockItem = StockStorage.getStockItem(id);
         if(stockItem == null) {
@@ -104,6 +104,7 @@ public class StockService {
      * @return Response JSon format
      */
     @PUT
+    @Path("/add")
     public Response addItem(
             @QueryParam("id") int id,
             @QueryParam("name") String name,
@@ -126,7 +127,7 @@ public class StockService {
      * @return Response JSon format
      */
     @DELETE
-    @Path("/{id}")
+    @Path("/{id}/delete")
     public Response disableItem(@PathParam("id") int id) {
         // TODO : Disable item
         StockItem stockItem = StockStorage.getStockItem(id);

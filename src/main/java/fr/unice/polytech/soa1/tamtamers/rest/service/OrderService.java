@@ -105,13 +105,13 @@ public class OrderService {
     }
 
     /**
-     * (GET) Return an order knowing his id
-     * @param id  int  (PATH)  id of the order
+     * (GET /order) Return an order knowing his id
+     * @param id  int  (QUERY)  id of the order
      * @return Response JSon format
      */
     @GET
-    @Path("/{id}")
-    public Response getOrder(@PathParam("id") int id) {
+    @Path("/order")
+    public Response getOrder(@QueryParam("id") int id) {
         Order order = OrderStorage.getOrder(id);
         if(order != null) {
             return Response.ok().entity(order.toString()).build();
@@ -141,8 +141,8 @@ public class OrderService {
      * @return Response JSon format
      */
     @GET
-    @Path("/{status}")
-    public Response getStateOrders(@PathParam("status") String state) {
+    @Path("/status")
+    public Response getStateOrders(@QueryParam("status") String state) {
         Collection<Order> orders = OrderStorage.getStatusOrders(state);
         JSONArray result = new JSONArray();
         for(Order order: orders) {
