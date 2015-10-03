@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Maxime on 9/28/2015.
- */
 public class ShipmentStorage {
 
     // this mocks a database.

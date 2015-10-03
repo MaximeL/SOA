@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Order {
     private int id;
     private Shipment shipment;
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<Item>();
     private User user;
     private double price;
     private Status status;
@@ -57,7 +57,8 @@ public class Order {
     }
 
     public void addItem(Integer tamtamId) {
-        items.add(new Item(tamtamId));
+        Item item = new Item(tamtamId);
+        items.add(item);
     }
 
     public void setPrice() {
@@ -125,7 +126,7 @@ public class Order {
                 ", \"items\":" +itm +
                 ", \"shipment\":" + shipment.toString() +
                 ", \"price\":" + price +
-                ", \"status\":" + status +
+                ", \"status\":\"" + status + "\"" +
                 ", \"user\":" + user +
             "}";
     }
