@@ -87,6 +87,7 @@ public class Order {
 
             case PREPARING_SHIPMENT:
                 this.status = Status.SHIPING;
+                this.shipment.generateCodeTracking();
                 break;
 
             default:
