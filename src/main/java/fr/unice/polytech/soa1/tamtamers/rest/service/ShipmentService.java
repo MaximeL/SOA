@@ -13,7 +13,6 @@ import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 /**
- * TODO : /stock ?
  * Service for the shipment
  */
 @Path("/shipments")

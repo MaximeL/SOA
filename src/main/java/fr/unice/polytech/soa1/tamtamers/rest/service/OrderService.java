@@ -10,8 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-// TODO : Sebastien Pas de verbe
-
 /**
  * (PATH /orders) Service for the orders
  */

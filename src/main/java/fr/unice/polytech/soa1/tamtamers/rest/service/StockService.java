@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-// TODO : Sébastien Pas de verbe
 @Path("/stock")
 @Produces(MediaType.APPLICATION_JSON)
 /**
