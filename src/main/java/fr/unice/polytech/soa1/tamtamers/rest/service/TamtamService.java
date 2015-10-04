@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-// TODO : Sébastien Pas de verbe
-
 @Path("/tamtams")
 @Produces(MediaType.APPLICATION_JSON)
 /**
@@ -97,7 +95,6 @@ public class TamtamService {
         return Response.ok().entity(result.toString(2)).build();
     }
 
-    // TODO Ajouter et modifier des tamtams
     @POST
     public Response addTamtam(
             @QueryParam("name") String name,

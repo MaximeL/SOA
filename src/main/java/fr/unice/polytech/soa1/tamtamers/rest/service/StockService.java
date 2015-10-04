@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
-// TODO : Sébastien Pas de verbe
 @Path("/stock")
 @Produces(MediaType.APPLICATION_JSON)
 /**
@@ -56,7 +55,7 @@ public class StockService {
      */
     @PUT
     @Path("/{id}")
-    public Response addToStock(
+    public Response updateStock(
             @PathParam("id") int id,
             @QueryParam("number") int number
     ) {
