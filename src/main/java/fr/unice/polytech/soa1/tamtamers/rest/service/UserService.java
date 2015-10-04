@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.Collection;
 
 @Path("/users")
@@ -49,8 +50,7 @@ public class UserService {
         user.setState(state);
 
         user = UserStorage.createUser(user);
-        return Response.ok().entity(user.toString()).build();
-
+        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).build();
     }
 
     @GET
@@ -168,8 +168,7 @@ public class UserService {
                 order.setShipment(shipment);
 
                 OrderStorage.createOrder(order);
-
-                return Response.ok().build();
+                return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/orders/" + order.getId())).build();
             }
         }
         return Response.status(Response.Status.NOT_FOUND).build();

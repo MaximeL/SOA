@@ -63,6 +63,7 @@ public class OrderService {
     @POST
     @Path("/status")
     public Response getStateOrders(@QueryParam("id") int id) {
+        // TODO @Maxime : C'est pas au client de faire ça ?
         OrderStorage.getOrder(id).nextStatus();
         return Response.ok().build();
     }
