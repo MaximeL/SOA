@@ -35,7 +35,8 @@ public class UserStorage {
                 User value = entry.getValue();
 				String[] tmp2 = value.getFullname().split(" ");
                 for(String mtch : tmp2) {
-                    if(mtch.equals(match) && !result.containsKey(key)) result.put(key, value);
+                    if(mtch.toLowerCase().equals(match.toLowerCase()) && !result.containsKey(key))
+                        result.put(key, value);
                 }
             }
         }
