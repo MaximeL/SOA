@@ -5,10 +5,7 @@ import fr.unice.polytech.soa1.tamtamers.rest.entity.StockItem;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -49,5 +46,28 @@ public class StockService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.ok().entity(stockItem.toString()).build();
+    }
+
+    /**
+     * [PUT /add) Increment the number of element of an item in the stock
+     * @param id      int  (PATH) id of the item
+     * @param number  int  (QUERY) number of element to add
+     * @return Response JSon format
+     */
+    @PUT
+    @Path("/{id}")
+    public Response addToStock(
+            @PathParam("id") int id,
+            @QueryParam("number") int number
+    ) {
+        StockItem stockItem = StockStorage.getStockItem(id);
+        if(stockItem == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        if(number <= 0) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        stockItem.setNumberInStock(number);
+        return Response.ok().build();
     }
 }

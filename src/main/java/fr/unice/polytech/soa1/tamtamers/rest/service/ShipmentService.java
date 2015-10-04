@@ -13,9 +13,10 @@ import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 /**
- * Servic for the shipment
+ * TODO : /stock ?
+ * Service for the shipment
  */
-@Path("/stock")
+@Path("/shipments")
 @Produces(MediaType.APPLICATION_JSON)
 public class ShipmentService {
     @GET

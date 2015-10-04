@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.Collection;
 
-@Path("/users")
+@Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserService {
     @GET

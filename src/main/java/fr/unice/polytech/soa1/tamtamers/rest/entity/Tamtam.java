@@ -16,6 +16,7 @@ public class Tamtam {
     private HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
     private HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
 
+    public Tamtam(){}
     public Tamtam(int id) {
         this.id = id;
         this.image = "http://www.langebeau.com/372-thickbox/tambour-tam-tam-djembe.jpg";
@@ -101,6 +102,14 @@ public class Tamtam {
     public HashMap<Integer, Decoration> getDecorations()
     {
         return this.decorations;
+    }
+
+    public void setShipments(HashMap<Integer, Shipment> shipments) {
+        this.shipments = shipments;
+    }
+
+    public void setDecorations(HashMap<Integer, Decoration> decorations) {
+        this.decorations = decorations;
     }
 
     public void addShipment(Shipment shipment) {

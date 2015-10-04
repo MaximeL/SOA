@@ -44,6 +44,7 @@ public class OrderService {
      * (GET /order) Return an order knowing his id
      * @param id  int  (QUERY)  id of the order
      * @return Response JSon format
+     * TODO : Ca affiche bien l'ID de transaction et l'id de livraison ?
      */
     @GET
     @Path("/{id}")
@@ -59,6 +60,7 @@ public class OrderService {
      * (POST) Change the state of an order to the next state
      * @param id  int  (QUERY)  id of the order
      * @return Response JSon format
+     * TODO : Changer l'URL
      */
     @POST
     @Path("/status")

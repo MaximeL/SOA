@@ -1,6 +1,10 @@
 package fr.unice.polytech.soa1.tamtamers.rest.service;
 
+import fr.unice.polytech.soa1.tamtamers.rest.database.DecorationStorage;
+import fr.unice.polytech.soa1.tamtamers.rest.database.ShipmentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.TamtamStorage;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Decoration;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Shipment;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Tamtam;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,8 +12,10 @@ import org.json.JSONObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 // TODO : Sébastien Pas de verbe
 
@@ -89,5 +95,131 @@ public class TamtamService {
         result.put("brands", brands);
 
         return Response.ok().entity(result.toString(2)).build();
+    }
+
+    // TODO Ajouter et modifier des tamtams
+    @POST
+    public Response addTamtam(
+            @QueryParam("name") String name,
+            @QueryParam("description") String description,
+            @QueryParam("image") String image,
+            @QueryParam("brand") String brand,
+            @QueryParam("wood") String wood,
+            @QueryParam("skin") String skin,
+            @QueryParam("price") Double price,
+            @HeaderParam("decorations") JSONArray decorations,
+            @HeaderParam("shipments") JSONArray shipments
+    ) {
+        Tamtam tamtam = new Tamtam();
+        if(
+            name == null ||
+            description == null ||
+            image == null ||
+            brand == null ||
+            wood == null ||
+            skin == null ||
+            // TODO : Valeur par défaut du prix ?
+            price == null
+        ) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        tamtam.setName(name);
+        tamtam.setDescription(description);
+        tamtam.setImage(image);
+        tamtam.setBrand(brand);
+        tamtam.setWood(wood);
+        tamtam.setSkin(skin);
+        tamtam.setPrice(price);
+
+        HashMap<Integer, Decoration> decorationHashMap = new HashMap<Integer, Decoration>();
+        for(int i = 0; i < decorations.length(); i++) {
+            Integer decorationId = (Integer) decorations.get(i);
+            Decoration decoration = DecorationStorage.getDecoration(decorationId);
+            if (decoration == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            decorationHashMap.put(decorationId, decoration);
+        }
+        tamtam.setDecorations(decorationHashMap);
+
+        HashMap<Integer, Shipment> shipmentHashMap = new HashMap<Integer, Shipment>();
+        for(int i = 0; i < shipments.length(); i++) {
+            Integer shipmentId = (Integer) shipments.get(i);
+            Shipment shipment= ShipmentStorage.getShipment(shipmentId);
+            if (shipment == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            shipmentHashMap.put(shipmentId, shipment);
+        }
+        tamtam.setShipments(shipmentHashMap);
+
+        TamtamStorage.createTamtam(tamtam);
+        return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/tamtams" + tamtam.getId())).build();
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response updateTamtam(
+            @PathParam("id") Integer id,
+            @QueryParam("name") String name,
+            @QueryParam("description") String description,
+            @QueryParam("image") String image,
+            @QueryParam("brand") String brand,
+            @QueryParam("wood") String wood,
+            @QueryParam("skin") String skin,
+            @QueryParam("price") Double price,
+            @HeaderParam("decorations") JSONArray decorations,
+            @HeaderParam("shipments") JSONArray shipments
+    ) {
+        Tamtam tamtam = TamtamStorage.getTamtam(id);
+        if(tamtam != null) {
+            if(name != null) {
+                tamtam.setName(name);
+            }
+            if(description != null) {
+                tamtam.setDescription(description);
+            }
+            if(image != null) {
+                tamtam.setImage(image);
+            }
+            if(brand != null) {
+                tamtam.setBrand(brand);
+            }
+            if(wood != null) {
+                tamtam.setWood(wood);
+            }
+            if(skin != null) {
+                tamtam.setSkin(skin);
+            }
+            // TODO : Valeur par défaut du prix ?
+            if(price != null) {
+                tamtam.setPrice(price);
+            }
+
+            HashMap<Integer, Decoration> decorationHashMap = new HashMap<Integer, Decoration>();
+            for(int i = 0; i < decorations.length(); i++) {
+                Integer decorationId = (Integer) decorations.get(i);
+                Decoration decoration = DecorationStorage.getDecoration(decorationId);
+                if (decoration == null) {
+                    return Response.status(Response.Status.BAD_REQUEST).build();
+                }
+                decorationHashMap.put(decorationId, decoration);
+            }
+            tamtam.setDecorations(decorationHashMap);
+
+            HashMap<Integer, Shipment> shipmentHashMap = new HashMap<Integer, Shipment>();
+            for(int i = 0; i < shipments.length(); i++) {
+                Integer shipmentId = (Integer) shipments.get(i);
+                Shipment shipment= ShipmentStorage.getShipment(shipmentId);
+                if (shipment == null) {
+                    return Response.status(Response.Status.BAD_REQUEST).build();
+                }
+                shipmentHashMap.put(shipmentId, shipment);
+            }
+            tamtam.setShipments(shipmentHashMap);
+
+            return Response.ok().entity(tamtam.toString()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
