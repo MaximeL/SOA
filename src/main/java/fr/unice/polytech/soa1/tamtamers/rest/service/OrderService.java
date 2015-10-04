@@ -6,7 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -49,11 +51,25 @@ public class OrderService {
      * @return Response JSon format
      */
     @GET
-    public Response getOrder(@QueryParam("id") int id) {
+    @Path("/{id}")
+    public Response getOrder(@PathParam("id") int id) {
         Order order = OrderStorage.getOrder(id);
         if(order != null) {
             return Response.ok().entity(order.toString()).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    /**
+     * (POST) Change the state of an order to the next state
+     * @param id  int  (QUERY)  id of the order
+     * @return Response JSon format
+     */
+    @POST
+    @Path("/status")
+    public Response getStateOrders(@QueryParam("id") int id) {
+        OrderStorage.getOrder(id).nextStatus();
+        return Response.ok().build();
+    }
+
 }
