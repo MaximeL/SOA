@@ -55,7 +55,7 @@ public class StockService {
      */
     @PUT
     @Path("/{id}")
-    public Response addToStock(
+    public Response updateStock(
             @PathParam("id") int id,
             @QueryParam("number") int number
     ) {
