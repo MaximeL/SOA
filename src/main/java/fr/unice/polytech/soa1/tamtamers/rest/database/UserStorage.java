@@ -33,7 +33,10 @@ public class UserStorage {
             for(Map.Entry<Integer, User> entry : users.entrySet()) {
                 Integer key = entry.getKey();
                 User value = entry.getValue();
-                if(value.getFullname().equals(match) && !result.containsKey(key)) result.put(key, value);
+				String[] tmp2 = value.getFullname().split(" ");
+                for(String mtch : tmp2) {
+                    if(mtch.equals(match) && !result.containsKey(key)) result.put(key, value);
+                }
             }
         }
         return result.values();
