@@ -21,15 +21,22 @@ import java.util.Collection;
 public class TamtamService {
 
     /**
-     * (GET) Retourne la liste de tout les tamtam de la base de donnée
+     * (GET) Search for tamtam(s) that fit the parameters. None returns all
      * @return Response JSon format
      */
     @GET
-    public Response getAvailableTamtams() {
+    public Response getAvailableTamtams(@QueryParam("brand") String brand, @QueryParam("skin") String skin, @QueryParam("wood") String wood) {
         Collection<Tamtam> tamtams = TamtamStorage.findAllTamtams();
         JSONArray result = new JSONArray();
         for(Tamtam tamtam: tamtams) {
-            result.put(new JSONObject(tamtam.minToString()));
+            if(brand == null || tamtam.getBrand().equals(brand)) {
+                if(skin == null || tamtam.getSkin().equals(skin)) {
+                    if(wood == null || tamtam.getWood().equals(wood)) {
+                        result.put(new JSONObject(tamtam));
+                    }
+                }
+            }
+            //result.put(new JSONObject(tamtam.minToString()));
         }
         return Response.ok().entity(result.toString()).build();
     }
@@ -39,7 +46,7 @@ public class TamtamService {
      * @param id  int  (PATH)  Tamtam's id you're looking for
      * @return Response JSon format
      */
-    @Path("/{id}/search")
+    @Path("/{id}")
     @GET
     public Response getTamtam(@PathParam("id") int id) {
         Tamtam tamtam = TamtamStorage.getTamtam(id);
@@ -49,33 +56,6 @@ public class TamtamService {
         return Response.ok().entity(tamtam.toString()).build();
     }
 
-
-    /**
-     * (GET /search) Search for tamtam(s) that fit the parameters.
-     * @param brand  String   (QUERY) name of the brand
-     * @param skin   String   (QUERY) name of the skin
-     * @param wood   String   (QUERY)name of the wood
-     * @return Response JSon format
-     */
-    @Path("/search")
-    @GET
-    public Response searchTamtam(@QueryParam("brand") String brand, @QueryParam("skin") String skin, @QueryParam("wood") String wood)
-    {
-        Collection<Tamtam> tamtams = TamtamStorage.findAllTamtams();
-        JSONArray result = new JSONArray();
-
-        for(Tamtam tamtam: tamtams) {
-            if(brand == null || tamtam.getBrand().equals(brand)) {
-                if(skin == null || tamtam.getSkin().equals(skin)) {
-                    if(wood == null || tamtam.getWood().equals(wood)) {
-                        result.put(new JSONObject(tamtam));
-                    }
-                }
-            }
-        }
-
-        return Response.ok().entity(result.toString(2)).build();
-    }
 
     /**
      * (GET /types) Return all the caracteristics that the tamtam can have. List the woods, skins and brands.

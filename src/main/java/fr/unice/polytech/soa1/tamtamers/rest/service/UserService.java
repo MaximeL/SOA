@@ -63,17 +63,6 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
-//    @GET
-//    public Response getUser() {
-//        System.out.println("ici ?");
-//
-//        JSONArray result = new JSONArray();
-//        for(User user : users) {
-//            result.put(new JSONObject(user.minToString()));
-//        }
-//        return Response.ok().entity(result.toString()).build();
-//    }
-
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") int id) {

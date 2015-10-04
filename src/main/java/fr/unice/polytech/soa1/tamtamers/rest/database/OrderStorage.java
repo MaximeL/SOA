@@ -44,11 +44,6 @@ public class OrderStorage {
         return result.values();
     }
 
-    public static Collection<Order> getShipingPlaceOrders(int orderId) {
-        return null;
-    }
-
-
     static {
         Order order = new Order();
         order.addItem(1);

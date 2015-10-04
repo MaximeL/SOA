@@ -41,7 +41,7 @@ public class Payment {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        this.status = Status.VALID;
     }
 
     public Type getType() {

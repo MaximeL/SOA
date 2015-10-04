@@ -7,14 +7,11 @@ import org.json.JSONObject;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 // TODO : Sebastien Pas de verbe
 
@@ -27,11 +24,18 @@ public class OrderService {
 
     /**
      * (GET) Return all the orders in the database
+     * @param state  String  (QUERY)  Name of the state for filter
      * @return Response JSon format
      */
     @GET
-    public Response getOrders() {
-        Collection<Order> orders = OrderStorage.findAllOrders();
+    public Response getOrders(@QueryParam("status") String state) {
+        Collection<Order> orders;
+        if(state != null) {
+            orders = OrderStorage.getStatusOrders(state);
+        } else {
+            orders = OrderStorage.findAllOrders();
+        }
+
         JSONArray result = new JSONArray();
         for(Order order: orders) {
             result.put(new JSONObject(order.toString()));
@@ -45,7 +49,6 @@ public class OrderService {
      * @return Response JSon format
      */
     @GET
-    @Path("/order")
     public Response getOrder(@QueryParam("id") int id) {
         Order order = OrderStorage.getOrder(id);
         if(order != null) {
@@ -53,37 +56,4 @@ public class OrderService {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
-
-    /**
-     * (GET) Return all the orders of an user
-     * @param id  int  (PATH)  id of the user
-     * @return Response JSon format
-     */
-    @GET
-    @Path("/{user}")
-    public Response getUserOrders(@PathParam("user") int id) {
-        Collection<Order> orders = OrderStorage.getUserOrders(id);
-        JSONArray result = new JSONArray();
-        for(Order order: orders) {
-            result.put(new JSONObject(order.toString()));
-        }
-        return Response.ok().entity(result.toString()).build();
-    }
-
-    /**
-     * (GET) Get all the order that are in a given state
-     * @param state  String  (PATH)  Name of the state
-     * @return Response JSon format
-     */
-    @GET
-    @Path("/status")
-    public Response getStateOrders(@QueryParam("status") String state) {
-        Collection<Order> orders = OrderStorage.getStatusOrders(state);
-        JSONArray result = new JSONArray();
-        for(Order order: orders) {
-            result.put(new JSONObject(order.toString()));
-        }
-        return Response.ok().entity(result.toString()).build();
-    }
-
 }

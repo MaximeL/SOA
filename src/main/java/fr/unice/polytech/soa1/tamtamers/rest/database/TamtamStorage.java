@@ -1,7 +1,9 @@
 package fr.unice.polytech.soa1.tamtamers.rest.database;
 
 
-import fr.unice.polytech.soa1.tamtamers.rest.entity.*;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Decoration;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Shipment;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Tamtam;
 
 import java.time.Period;
 import java.util.Collection;
