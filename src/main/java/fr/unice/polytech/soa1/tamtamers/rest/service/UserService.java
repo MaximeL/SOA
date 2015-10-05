@@ -50,7 +50,7 @@ public class UserService {
         user.setState(state);
 
         user = UserStorage.createUser(user);
-        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).build();
+        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).entity("").build();
     }
 
     @GET

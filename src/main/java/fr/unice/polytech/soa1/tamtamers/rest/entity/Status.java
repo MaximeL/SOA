@@ -5,7 +5,8 @@ public enum Status {
     WAITING_PAYMENT ("Waiting Payment"),
     PREPARING_SHIPMENT ("Preparing Shipement"),
     SHIPING ("Shiping"),
-    ARCHIVED ("Archived");
+    ARCHIVED ("Archived"),
+    CANCELED("Canceled");
 
     private final String val;
     Status(String val) {
