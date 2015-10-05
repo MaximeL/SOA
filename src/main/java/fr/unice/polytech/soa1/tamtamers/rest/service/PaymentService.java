@@ -5,11 +5,14 @@ import fr.unice.polytech.soa1.tamtamers.rest.database.PaymentStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Status;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * (PATH /payment) Service for the payment
@@ -18,7 +21,7 @@ import javax.ws.rs.core.Response;
 public class PaymentService {
 
     /**
-     * (PUT) Payment by creditcard
+     * (PUT) Payment by creditcard. Payment is valide if amout is odd.
      * @param card              String   (QUERY)  card number
      * @param owner             String   (QUERY)  owner name
      * @param verificationCode  String   (QUERY)  verification code
@@ -49,31 +52,58 @@ public class PaymentService {
             Payment payment = new Payment(orderId);
             payment.setAmount(amount);
             payment.setType(Payment.Type.CB);
+            payment.setOrder(orderId);
+
+            //Racourcis
+            if(payment.getPaid()) {
+                payment.decline();
+                OrderStorage.getOrder(orderId).cancelOrder();
+            } else {
+                payment.validate();
+                OrderStorage.getOrder(orderId).nextStatus();
+            }
+
+
             PaymentStorage.createPayment(payment);
-            order.nextStatus();
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     /**
-     * (PUT) Payment by PayPal
-     * @param paypallAccount  String   (QUERY)  name of the PayPal account
-     * @param orderId         Integer  (QUERY)  id of the order
-     * @return Response JSon format
+     * All the payment that need to be validated
+     * @return
+     */
+    @GET
+    public Response getToPay() {
+        Collection<Payment> pmts = PaymentStorage.getToPay();
+        JSONArray result = new JSONArray();
+
+        for(Payment p : pmts)
+            result.put(new JSONObject(p.toString()));
+
+        return Response.ok().entity(result.toString()).build();
+    }
+
+    /**
+     * Set status of a payment.
+     * @param id      int     (PATH)   id of the payment
+     * @param status  String  (QUERY)  status to set
+     * @return
      */
     @PUT
-    public Response payPaypall(
-            @QueryParam("account") String paypallAccount,
-            @QueryParam("order") Integer orderId
-    ) {
-        Order order = OrderStorage.getOrder(orderId);
-        Payment payment = new Payment(orderId);
-        payment.setType(Payment.Type.PAYPAL);
-        payment.setAmount(order.getPrice());
-
-        PaymentStorage.createPayment(payment);
-        order.nextStatus();
-        return Response.ok().build();
+    @Path("{id}")
+    public Response validate(@PathParam("id") int id, @QueryParam("status") String status) {
+        if(status.equals("VALID")) {
+            PaymentStorage.validate(id);
+            OrderStorage.getOrder(id).nextStatus();
+            return Response.ok().build();
+        } else if(status.equals("INVALID")) {
+            PaymentStorage.decline(id);
+            OrderStorage.getOrder(id).cancelOrder();
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 }

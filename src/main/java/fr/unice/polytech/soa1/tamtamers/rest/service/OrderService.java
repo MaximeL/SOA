@@ -57,6 +57,7 @@ public class OrderService {
     @PUT
     @Path("/{id}/cancel}")
     public Response cancelPayment(@PathParam("id") int id) {
+        if(OrderStorage.getOrder(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
         OrderStorage.cancelOrder(id);
         return Response.status(Response.Status.OK).build();
     }

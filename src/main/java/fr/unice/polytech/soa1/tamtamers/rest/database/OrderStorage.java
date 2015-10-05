@@ -56,5 +56,6 @@ public class OrderStorage {
     public static void cancelOrder(int id) {
         Order o = orders.get(id);
         o.cancelOrder();
+        orders.replace(id, o);
     }
 }

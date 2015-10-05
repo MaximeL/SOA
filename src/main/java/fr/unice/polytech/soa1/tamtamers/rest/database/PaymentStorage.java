@@ -4,24 +4,44 @@ import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class PaymentStorage {
-    private static HashMap<Integer, Payment> paiements = new HashMap<Integer, Payment>();
+    private static HashMap<Integer, Payment> payments = new HashMap<Integer, Payment>();
 
     // PAIMENTS
     public static Collection<Payment> findAllPayments() {
-        return paiements.values();
+        return payments.values();
     }
 
     public static Payment getPaymentOfOrder(Integer order) {
-        return paiements.get(order);
+        return payments.get(order);
     }
 
     public static void createPayment(Payment payment) {
         Random random = new Random();
         payment.setTransaction(String.valueOf(random.nextLong()));
-        payment.setStatus(Payment.Status.VALID);
-        paiements.put(payment.getOrder(), payment);
+        payments.put(payment.getOrder(), payment);
+    }
+
+    public static Collection<Payment> getToPay() {
+        HashMap<Integer, Payment> topay = new HashMap<Integer, Payment>();
+
+        return topay.values();
+    }
+
+    public static void validate(int id) {
+        Payment payment = payments.get(id);
+        payment.validate();
+
+        payments.replace(id, payment);
+    }
+
+    public static void decline(int id) {
+        Payment payment = payments.get(id);
+        payment.decline();
+
+        payments.replace(id, payment);
     }
 }

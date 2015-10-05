@@ -40,12 +40,20 @@ public class Payment {
         return this.status;
     }
 
-    public void setStatus(Status status) {
+    public Type getType() {
+        return type;
+    }
+
+    public boolean getPaid() {
+        return (amount%2) == 0;
+    }
+
+    public void validate() {
         this.status = Status.VALID;
     }
 
-    public Type getType() {
-        return type;
+    public void decline() {
+        this.status = Status.DECLINE;
     }
 
     public void setType(Type type) {

@@ -13,6 +13,8 @@ public class Tamtam {
     private String skin;
     private double price;
 
+    private String resource;
+
     private HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
     private HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
 
@@ -29,6 +31,7 @@ public class Tamtam {
                 "Je me souviens en fait, tu vois au passage qu'il n'y a rien de concret car on vit dans une réalité qu'on a créée et que j'appelle illusion parce que spirituellement, on est tous ensemble, ok ? Mais ça, c'est uniquement lié au spirit.\n" +
                 "\n" +
                 "Je ne voudrais pas rentrer dans des choses trop dimensionnelles, mais, je sais que, grâce à ma propre vérité il faut toute la splendeur du aware et ça, c'est très dur, et, et, et... c'est très facile en même temps. Mais ça, c'est uniquement lié au spirit.";
+        this.resource = "http://localhost:8181/cxf/tamtamers/tamtams/"+id;
     }
 
     public int getId() {
@@ -129,6 +132,7 @@ public class Tamtam {
                 ", \"wood\":\"" + wood + "\"" +
                 ", \"skin\":\"" + skin + "\"" +
                 ", \"price\":" + price +
+                ", \"resource\":" + resource +
             "}";
 
     }
@@ -156,6 +160,7 @@ public class Tamtam {
                 ", \"wood\":\"" + wood + "\"" +
                 ", \"skin\":\"" + skin + "\"" +
                 ", \"price\":" + price +
+                ", \"resource\":" + resource +
                 ", " + lists +
             '}';
     }
