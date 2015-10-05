@@ -246,4 +246,17 @@ public class TamtamService {
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    /**
+     * Delete tamtam from the showcase
+     * @param id  int  (PATH)  id of the tamtam
+     * @return
+     */
+    @DELETE
+    @Path("{id}/")
+    public Response deleteTamtam(@PathParam("id") int id) {
+        if(TamtamStorage.getTamtam(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
+        TamtamStorage.deleteTamtam(id);
+        return Response.status(Response.Status.OK).build();
+    }
 }
