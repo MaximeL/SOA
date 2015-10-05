@@ -92,7 +92,7 @@ public class PaymentService {
      * @return
      */
     @PUT
-    @Path("{id}")
+    @Path("/{id}")
     public Response validate(@PathParam("id") int id, @QueryParam("status") String status) {
         if(status.equals("VALID")) {
             PaymentStorage.validate(id);

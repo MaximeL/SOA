@@ -18,6 +18,12 @@ import java.util.Collection;
 @Path("/shipments")
 @Produces(MediaType.APPLICATION_JSON)
 public class ShipmentService {
+
+    /**
+     * List all the shipment or get them by name
+     * @param type  String  (QUERY)  status of the shipment
+     * @return
+     */
     @GET
     public Response getShipment(@QueryParam("type") String type) {
         if(type != null) {

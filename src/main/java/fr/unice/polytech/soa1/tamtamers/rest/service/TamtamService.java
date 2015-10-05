@@ -95,6 +95,19 @@ public class TamtamService {
         return Response.ok().entity(result.toString(2)).build();
     }
 
+    /**
+     * Add a tamtam to the showcase
+     * @param name         String     (QUERY)   name of the tamtam
+     * @param description  String     (QUERY)   description of the tamtam
+     * @param image        String     (QUERY)   image of the tamtam
+     * @param brand        String     (QUERY)   brand of the tamtam
+     * @param wood         String     (QUERY)   wood used by the tamtam
+     * @param skin         String     (QUERY)   skin used by the tamtam
+     * @param price        Double     (QUERY)   price of the tamtam
+     * @param decorations  JSONArray  (HEADER)  Decorations available
+     * @param shipments    JSONArray  (HEADER)  Shipments available
+     * @return
+     */
     @POST
     public Response addTamtam(
             @QueryParam("name") String name,
@@ -154,6 +167,20 @@ public class TamtamService {
         return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/tamtams" + tamtam.getId())).build();
     }
 
+    /**
+     * Update tamtam
+     * @param id           Integer    (PATH)    id of the tamtam
+     * @param name         String     (QUERY)   name of the tamtam
+     * @param description  String     (QUERY)   description of the tamtam
+     * @param image        String     (QUERY)   image of the tamtam
+     * @param brand        String     (QUERY)   brand of the tamtam
+     * @param wood         String     (QUERY)   wood used by the tamtam
+     * @param skin         String     (QUERY)   skin used by the tamtam
+     * @param price        Double     (QUERY)   price of the tamtam
+     * @param decorations  JSONArray  (HEADER)  Decorations available
+     * @param shipments    JSONArray  (HEADER)  Shipments available
+     * @return
+     */
     @PUT
     @Path("/{id}")
     public Response updateTamtam(

@@ -17,6 +17,12 @@ import java.util.Collection;
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserService {
+
+    /**
+     * Get all users or user by name
+     * @param name  String  (QUERY)  Name looking for
+     * @return
+     */
     @GET
     public Response getUsers(@QueryParam("name") String name) {
         Collection<User> users;
@@ -32,6 +38,16 @@ public class UserService {
         return Response.ok().entity(result.toString()).build();
     }
 
+    /**
+     * Add a user
+     * @param fullname  String  (QUERY)  name of the customer
+     * @param phone     String  (QUERY)  phone number of the customer
+     * @param address1  String  (QUERY)  First part of the adress
+     * @param address2  String  (QUERY)  Second part of the adress
+     * @param zc        String  (QUERY)  Zip code
+     * @param state     String  (QUERY)  State
+     * @return
+     */
     @POST
     public Response addUser(
             @QueryParam("fullname") String fullname,
@@ -53,6 +69,11 @@ public class UserService {
         return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).entity("").build();
     }
 
+    /**
+     * Get user by id
+     * @param id  int  (PATH)  id of the user
+     * @return
+     */
     @GET
     @Path("/{id}")
     public Response getUser(@PathParam("id") int id) {
@@ -63,6 +84,11 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * Delete the user
+     * @param id  int  (PATH)  id of the user
+     * @return
+     */
     @DELETE
     @Path("/{id}")
     public Response deleteUser(@PathParam("id") int id) {
@@ -74,6 +100,17 @@ public class UserService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * Modify a user
+     * @param id        int     (PATH)   id of the user
+     * @param fullname  String  (QUERY)  name of the customer
+     * @param phone     String  (QUERY)  phone number of the customer
+     * @param address1  String  (QUERY)  First part of the adress
+     * @param address2  String  (QUERY)  Second part of the adress
+     * @param zc        String  (QUERY)  Zip code
+     * @param state     String  (QUERY)  State
+     * @return
+     */
     @PUT
     @Path("/{id}")
     public Response updateUser(

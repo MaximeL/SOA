@@ -54,12 +54,21 @@ public class OrderService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    /**
+     * Cancel the order
+     * @param id      int     (PATH)   id of the order
+     * @param action  String  (QUERY)  Must be "CANCEL"
+     * @return
+     */
     @PUT
-    @Path("/{id}/cancel}")
-    public Response cancelPayment(@PathParam("id") int id) {
-        if(OrderStorage.getOrder(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
-        OrderStorage.cancelOrder(id);
-        return Response.status(Response.Status.OK).build();
+    @Path("/{id}}")
+    public Response cancelPayment(@PathParam("id") int id, @QueryParam("action") String action) {
+        if(action.equals("CANCEL")) {
+            if(OrderStorage.getOrder(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
+            OrderStorage.cancelOrder(id);
+            return Response.status(Response.Status.OK).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     /**
