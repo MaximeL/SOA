@@ -52,4 +52,9 @@ public class OrderStorage {
         createOrder(order);
         TamtamStorage.getTamtam(1);
     }
+
+    public static void cancelOrder(int id) {
+        Order o = orders.get(id);
+        o.cancelOrder();
+    }
 }

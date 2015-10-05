@@ -112,6 +112,10 @@ public class Order {
         }
     }
 
+    public void cancelOrder() {
+        this.status = Status.CANCELED;
+    }
+
 
     @Override
     public String toString()

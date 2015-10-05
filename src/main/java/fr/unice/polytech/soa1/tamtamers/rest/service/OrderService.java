@@ -54,6 +54,13 @@ public class OrderService {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @PUT
+    @Path("/{id}/cancel}")
+    public Response cancelPayment(@PathParam("id") int id) {
+        OrderStorage.cancelOrder(id);
+        return Response.status(Response.Status.OK).build();
+    }
+
     /**
      * (POST) Change the state of an order to the next state
      * @param id  int  (QUERY)  id of the order
