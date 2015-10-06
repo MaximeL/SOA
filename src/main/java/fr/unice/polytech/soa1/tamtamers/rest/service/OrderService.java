@@ -57,12 +57,12 @@ public class OrderService {
     /**
      * Cancel the order
      * @param id      int     (PATH)   id of the order
-     * @param action  String  (QUERY)  Must be "CANCEL"
+     * @param action  String  (FORM)  Must be "CANCEL"
      * @return
      */
     @PUT
     @Path("/{id}}")
-    public Response cancelPayment(@PathParam("id") int id, @QueryParam("action") String action) {
+    public Response cancelPayment(@PathParam("id") int id, @FormParam("action") String action) {
         if(action.equals("CANCEL")) {
             if(OrderStorage.getOrder(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
             OrderStorage.cancelOrder(id);
@@ -73,13 +73,13 @@ public class OrderService {
 
     /**
      * (POST) Change the state of an order to the next state
-     * @param id  int  (QUERY)  id of the order
+     * @param id  int  (FORM)  id of the order
      * @return Response JSon format
      * TODO : Changer l'URL
      */
     @POST
     @Path("/status")
-    public Response getStateOrders(@QueryParam("id") int id) {
+    public Response getStateOrders(@FormParam("id") int id) {
         // TODO @Maxime : C'est pas au client de faire ça ?
         OrderStorage.getOrder(id).nextStatus();
         return Response.ok().build();

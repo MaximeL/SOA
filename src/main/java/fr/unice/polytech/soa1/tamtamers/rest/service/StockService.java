@@ -49,15 +49,15 @@ public class StockService {
 
     /**
      * [PUT /add) Increment the number of element of an item in the stock
-     * @param id      int  (PATH) id of the item
-     * @param number  int  (QUERY) number of element to add
+     * @param id      int  (PATH)  id of the item
+     * @param number  int  (FORM)  number of element to add
      * @return Response JSon format
      */
     @PUT
     @Path("/{id}")
     public Response updateStock(
             @PathParam("id") int id,
-            @QueryParam("number") int number
+            @FormParam("number") int number
     ) {
         StockItem stockItem = StockStorage.getStockItem(id);
         if(stockItem == null) {

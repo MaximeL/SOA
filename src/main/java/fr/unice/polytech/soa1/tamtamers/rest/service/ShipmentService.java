@@ -45,7 +45,7 @@ public class ShipmentService {
     }
 
     /**
-     * (GET /express) Return the best express shipment service
+     * Return the best express shipment service
      * @return Response JSon format
      */
     public Response getExpress() {
@@ -58,7 +58,7 @@ public class ShipmentService {
     }
 
     /**
-     * (GET /normal) Return the best normal shipement
+     * Return the best normal shipement
      * @return Response JSon format
      */
     public Response getNormal() {

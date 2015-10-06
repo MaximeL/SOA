@@ -97,28 +97,28 @@ public class TamtamService {
 
     /**
      * Add a tamtam to the showcase
-     * @param name         String     (QUERY)   name of the tamtam
-     * @param description  String     (QUERY)   description of the tamtam
-     * @param image        String     (QUERY)   image of the tamtam
-     * @param brand        String     (QUERY)   brand of the tamtam
-     * @param wood         String     (QUERY)   wood used by the tamtam
-     * @param skin         String     (QUERY)   skin used by the tamtam
-     * @param price        Double     (QUERY)   price of the tamtam
-     * @param decorations  JSONArray  (HEADER)  Decorations available
-     * @param shipments    JSONArray  (HEADER)  Shipments available
+     * @param name         String     (FORM)  name of the tamtam
+     * @param description  String     (FORM)  description of the tamtam
+     * @param image        String     (FORM)  image of the tamtam
+     * @param brand        String     (FORM)  brand of the tamtam
+     * @param wood         String     (FORM)  wood used by the tamtam
+     * @param skin         String     (FORM)  skin used by the tamtam
+     * @param price        Double     (FORM)  price of the tamtam
+     * @param decorations  JSONArray  (FORM)  Decorations available
+     * @param shipments    JSONArray  (FORM)  Shipments available
      * @return
      */
     @POST
     public Response addTamtam(
-            @QueryParam("name") String name,
-            @QueryParam("description") String description,
-            @QueryParam("image") String image,
-            @QueryParam("brand") String brand,
-            @QueryParam("wood") String wood,
-            @QueryParam("skin") String skin,
-            @QueryParam("price") Double price,
-            @HeaderParam("decorations") JSONArray decorations,
-            @HeaderParam("shipments") JSONArray shipments
+            @FormParam("name") String name,
+            @FormParam("description") String description,
+            @FormParam("image") String image,
+            @FormParam("brand") String brand,
+            @FormParam("wood") String wood,
+            @FormParam("skin") String skin,
+            @FormParam("price") Double price,
+            @FormParam("decorations") JSONArray decorations,
+            @FormParam("shipments") JSONArray shipments
     ) {
         Tamtam tamtam = new Tamtam();
         if(
@@ -169,31 +169,31 @@ public class TamtamService {
 
     /**
      * Update tamtam
-     * @param id           Integer    (PATH)    id of the tamtam
-     * @param name         String     (QUERY)   name of the tamtam
-     * @param description  String     (QUERY)   description of the tamtam
-     * @param image        String     (QUERY)   image of the tamtam
-     * @param brand        String     (QUERY)   brand of the tamtam
-     * @param wood         String     (QUERY)   wood used by the tamtam
-     * @param skin         String     (QUERY)   skin used by the tamtam
-     * @param price        Double     (QUERY)   price of the tamtam
-     * @param decorations  JSONArray  (HEADER)  Decorations available
-     * @param shipments    JSONArray  (HEADER)  Shipments available
+     * @param id           Integer    (PATH)  id of the tamtam
+     * @param name         String     (FORM)  name of the tamtam
+     * @param description  String     (FORM)  description of the tamtam
+     * @param image        String     (FORM)  image of the tamtam
+     * @param brand        String     (FORM)  brand of the tamtam
+     * @param wood         String     (FORM)  wood used by the tamtam
+     * @param skin         String     (FORM)  skin used by the tamtam
+     * @param price        Double     (FORM)  price of the tamtam
+     * @param decorations  JSONArray  (FORM)  Decorations available
+     * @param shipments    JSONArray  (FORM)  Shipments available
      * @return
      */
     @PUT
     @Path("/{id}")
     public Response updateTamtam(
             @PathParam("id") Integer id,
-            @QueryParam("name") String name,
-            @QueryParam("description") String description,
-            @QueryParam("image") String image,
-            @QueryParam("brand") String brand,
-            @QueryParam("wood") String wood,
-            @QueryParam("skin") String skin,
-            @QueryParam("price") Double price,
-            @HeaderParam("decorations") JSONArray decorations,
-            @HeaderParam("shipments") JSONArray shipments
+            @FormParam("name") String name,
+            @FormParam("description") String description,
+            @FormParam("image") String image,
+            @FormParam("brand") String brand,
+            @FormParam("wood") String wood,
+            @FormParam("skin") String skin,
+            @FormParam("price") Double price,
+            @FormParam("decorations") JSONArray decorations,
+            @FormParam("shipments") JSONArray shipments
     ) {
         Tamtam tamtam = TamtamStorage.getTamtam(id);
         if(tamtam != null) {
