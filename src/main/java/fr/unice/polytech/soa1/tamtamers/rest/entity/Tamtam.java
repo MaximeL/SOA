@@ -160,7 +160,7 @@ public class Tamtam {
                 ", \"wood\":\"" + wood + "\"" +
                 ", \"skin\":\"" + skin + "\"" +
                 ", \"price\":" + price +
-                ", \"resource\":" + resource +
+                ", \"resource\":" + "\"" +resource + "\"" +
                 ", " + lists +
             '}';
     }

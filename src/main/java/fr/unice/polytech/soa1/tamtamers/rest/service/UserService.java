@@ -49,13 +49,14 @@ public class UserService {
      * @return
      */
     @POST
+    @Consumes("application/x-www-form-urlencoded")
     public Response addUser(
-            @QueryParam("fullname") String fullname,
-            @QueryParam("phone") String phone,
-            @QueryParam("address1") String address1,
-            @QueryParam("address2") String address2,
-            @QueryParam("zip-code") String zc,
-            @QueryParam("state") String state
+            @FormParam("fullname") String fullname,
+            @FormParam("phone") String phone,
+            @FormParam("address1") String address1,
+            @FormParam("address2") String address2,
+            @FormParam("zip-code") String zc,
+            @FormParam("state") String state
         ) {
         User user = new User();
         user.setFullname(fullname);
@@ -66,7 +67,7 @@ public class UserService {
         user.setState(state);
 
         user = UserStorage.createUser(user);
-        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).entity("").build();
+        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).build();
     }
 
     /**
@@ -154,11 +155,12 @@ public class UserService {
      */
     @POST
     @Path("/{id}/orders")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes("application/x-www-form-urlencoded")
     public Response createOrder(
             @PathParam("id") int id,
-            @HeaderParam("order") JSONObject data
+            @FormParam("order") JSONObject data
     ) {
+        System.out.println(data);
         User user = UserStorage.findUserById(id);
         Integer shipmentId;
 
