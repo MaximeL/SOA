@@ -22,20 +22,20 @@ public class PaymentService {
 
     /**
      * (PUT) Payment by creditcard. Payment is valide if amout is odd.
-     * @param card              String   (QUERY)  card number
-     * @param owner             String   (QUERY)  owner name
-     * @param verificationCode  String   (QUERY)  verification code
-     * @param orderId           Integer  (QUERY)  id of the customer
-     * @param amount            Double   (QUERY)  amount payed
+     * @param card              String   (FORM)  card number
+     * @param owner             String   (FORM)  owner name
+     * @param verificationCode  String   (FORM)  verification code
+     * @param orderId           Integer  (FORM)  id of the customer
+     * @param amount            Double   (FORM)  amount payed
      * @return Response JSon format
      */
     @PUT
     public Response payCB(
-            @QueryParam("cardnumber") String card,
-            @QueryParam("owner") String owner,
-            @QueryParam("verification-code") String verificationCode,
-            @QueryParam("order") Integer orderId,
-            @QueryParam("amount") Double amount
+            @FormParam("cardnumber") String card,
+            @FormParam("owner") String owner,
+            @FormParam("verification-code") String verificationCode,
+            @FormParam("order") Integer orderId,
+            @FormParam("amount") Double amount
     ) {
         Order order = OrderStorage.getOrder(orderId);
         card = card.replaceAll(" ", "");
@@ -87,13 +87,13 @@ public class PaymentService {
 
     /**
      * Set status of a payment.
-     * @param id      int     (PATH)   id of the payment
-     * @param status  String  (QUERY)  status to set
+     * @param id      int     (PATH)  id of the payment
+     * @param status  String  (FORM)  status to set
      * @return
      */
     @PUT
     @Path("/{id}")
-    public Response validate(@PathParam("id") int id, @QueryParam("status") String status) {
+    public Response validate(@PathParam("id") int id, @FormParam("status") String status) {
         if(status.equals("VALID")) {
             PaymentStorage.validate(id);
             OrderStorage.getOrder(id).nextStatus();

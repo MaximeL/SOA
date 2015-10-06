@@ -40,22 +40,22 @@ public class UserService {
 
     /**
      * Add a user
-     * @param fullname  String  (QUERY)  name of the customer
-     * @param phone     String  (QUERY)  phone number of the customer
-     * @param address1  String  (QUERY)  First part of the adress
-     * @param address2  String  (QUERY)  Second part of the adress
-     * @param zc        String  (QUERY)  Zip code
-     * @param state     String  (QUERY)  State
+     * @param fullname  String  (FORM)  name of the customer
+     * @param phone     String  (FORM)  phone number of the customer
+     * @param address1  String  (FORM)  First part of the adress
+     * @param address2  String  (FORM)  Second part of the adress
+     * @param zc        String  (FORM)  Zip code
+     * @param state     String  (FORM)  State
      * @return
      */
     @POST
     public Response addUser(
-            @QueryParam("fullname") String fullname,
-            @QueryParam("phone") String phone,
-            @QueryParam("address1") String address1,
-            @QueryParam("address2") String address2,
-            @QueryParam("zip-code") String zc,
-            @QueryParam("state") String state
+            @FormParam("fullname") String fullname,
+            @FormParam("phone") String phone,
+            @FormParam("address1") String address1,
+            @FormParam("address2") String address2,
+            @FormParam("zip-code") String zc,
+            @FormParam("state") String state
         ) {
         User user = new User();
         user.setFullname(fullname);
@@ -102,25 +102,25 @@ public class UserService {
 
     /**
      * Modify a user
-     * @param id        int     (PATH)   id of the user
-     * @param fullname  String  (QUERY)  name of the customer
-     * @param phone     String  (QUERY)  phone number of the customer
-     * @param address1  String  (QUERY)  First part of the adress
-     * @param address2  String  (QUERY)  Second part of the adress
-     * @param zc        String  (QUERY)  Zip code
-     * @param state     String  (QUERY)  State
+     * @param id        int     (PATH)  id of the user
+     * @param fullname  String  (FORM)  name of the customer
+     * @param phone     String  (FORM)  phone number of the customer
+     * @param address1  String  (FORM)  First part of the adress
+     * @param address2  String  (FORM)  Second part of the adress
+     * @param zc        String  (FORM)  Zip code
+     * @param state     String  (FORM)  State
      * @return
      */
     @PUT
     @Path("/{id}")
     public Response updateUser(
             @PathParam("id") int id,
-            @QueryParam("fullname") String fullname,
-            @QueryParam("phone") String phone,
-            @QueryParam("address1") String address1,
-            @QueryParam("address2") String address2,
-            @QueryParam("zip-code") String zc,
-            @QueryParam("state") String state
+            @FormParam("fullname") String fullname,
+            @FormParam("phone") String phone,
+            @FormParam("address1") String address1,
+            @FormParam("address2") String address2,
+            @FormParam("zip-code") String zc,
+            @FormParam("state") String state
     ) {
         User user = UserStorage.findUserById(id);
         if(user != null) {
@@ -150,14 +150,16 @@ public class UserService {
 
     /**
      * (POST /{id}/orders) Create a new order
-     * @return Response
+     * @param id    int         (PATH)  id of the order
+     * @param data  JSONObject  (FORM)  order that will replace the one that match the id.
+     * @return
      */
     @POST
     @Path("/{id}/orders")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createOrder(
             @PathParam("id") int id,
-            @HeaderParam("order") JSONObject data
+            @FormParam("order") JSONObject data
     ) {
         User user = UserStorage.findUserById(id);
         Integer shipmentId;
