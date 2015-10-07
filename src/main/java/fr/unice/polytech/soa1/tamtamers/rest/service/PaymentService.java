@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,7 +18,8 @@ import java.util.Map;
 /**
  * (PATH /payment) Service for the payment
  */
-@Path("/payment")
+@Path("/payments")
+@Produces(MediaType.APPLICATION_JSON)
 public class PaymentService {
 
     /**
@@ -55,12 +57,14 @@ public class PaymentService {
             payment.setOrder(orderId);
 
             //Racourcis
-            if(payment.getPaid()) {
+            if(card.equals("0000000000000000")) {
+                payment.waiting();
+            } else if(card.equals("1111111111111111")) {
                 payment.decline();
-                OrderStorage.getOrder(orderId).cancelOrder();
+                OrderStorage.getOrder(orderId).problem();
             } else {
                 payment.validate();
-                OrderStorage.getOrder(orderId).nextStatus();
+                OrderStorage.getOrder(orderId).payed();
             }
 
 
@@ -96,7 +100,7 @@ public class PaymentService {
     public Response validate(@PathParam("id") int id, @FormParam("status") String status) {
         if(status.equals("VALID")) {
             PaymentStorage.validate(id);
-            OrderStorage.getOrder(id).nextStatus();
+            OrderStorage.getOrder(id).payed();
             return Response.ok().build();
         } else if(status.equals("INVALID")) {
             PaymentStorage.decline(id);

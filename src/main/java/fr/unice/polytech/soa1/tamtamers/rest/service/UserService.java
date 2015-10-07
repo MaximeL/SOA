@@ -49,6 +49,7 @@ public class UserService {
      * @return
      */
     @POST
+    @Consumes("application/x-www-form-urlencoded")
     public Response addUser(
             @FormParam("fullname") String fullname,
             @FormParam("phone") String phone,
@@ -66,7 +67,7 @@ public class UserService {
         user.setState(state);
 
         user = UserStorage.createUser(user);
-        return Response.created(URI.create("localhost:8181/cxf/tamtamers/users/" + user.getId())).entity("").build();
+        return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/users/" + user.getId())).build();
     }
 
     /**
@@ -156,7 +157,6 @@ public class UserService {
      */
     @POST
     @Path("/{id}/orders")
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response createOrder(
             @PathParam("id") int id,
             @FormParam("order") JSONObject data

@@ -34,7 +34,7 @@ public class Item {
 
     @Override
     public String toString() {
-        String res = "{ \"tamtam\":"+this.tamtam;
+        String res = "{ \"tamtam\":"+this.tamtam.minToString();
         if(this.decoration != null) res += ", \"decoration\":"+this.decoration;
         res += "}";
         return res;

@@ -9,7 +9,7 @@
   <artifactId>ws-rest</artifactId>
   <version>1.0</version>
   <packaging>bundle</packaging>
-  <name>SOA1 :: REST-based implementation</name>
+  <name>Tamtamers | GREGOIRE - LOZACH</name>
 
   <properties>
     <!-- Version for dependencies (CXF + JUnit) -->

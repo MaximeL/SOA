@@ -18,8 +18,13 @@ public class Tamtam {
     private HashMap<Integer, Shipment> shipments = new HashMap<Integer, Shipment>();
     private HashMap<Integer, Decoration> decorations = new HashMap<Integer, Decoration>();
 
-    public Tamtam(){}
+    private Status status;
+
+    public Tamtam(){
+        this.status = Status.STOCK;
+    }
     public Tamtam(int id) {
+        this.status = Status.STOCK;
         this.id = id;
         this.image = "http://www.langebeau.com/372-thickbox/tambour-tam-tam-djembe.jpg";
         this.description = "Je me souviens en fait, après il faut s'intégrer tout ça dans les environnements et entre penser et dire, il y a un monde de différence et c'est très, très beau d'avoir son propre moi-même ! Mais ça, c'est uniquement lié au spirit.\n" +
@@ -124,6 +129,30 @@ public class Tamtam {
         return this.shipments;
     }
 
+    public enum Status {
+
+        STOCK ("En stock"),
+        OUT("Rupture");
+
+        private final String val;
+        Status(String val) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return val;
+        }
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String minToString() {
         return "{" +
                 "\"id\":" + id +
@@ -132,7 +161,7 @@ public class Tamtam {
                 ", \"wood\":\"" + wood + "\"" +
                 ", \"skin\":\"" + skin + "\"" +
                 ", \"price\":" + price +
-                ", \"resource\":" + resource +
+                ", \"resource\":" +"\""+ resource + "\"" +
             "}";
 
     }
@@ -160,7 +189,8 @@ public class Tamtam {
                 ", \"wood\":\"" + wood + "\"" +
                 ", \"skin\":\"" + skin + "\"" +
                 ", \"price\":" + price +
-                ", \"resource\":" + resource +
+                ", \"stock\":" + "\"" + status + "\"" +
+                ", \"resource\":" + "\"" +resource + "\"" +
                 ", " + lists +
             '}';
     }

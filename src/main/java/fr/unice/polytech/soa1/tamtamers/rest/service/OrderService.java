@@ -2,6 +2,7 @@ package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.OrderStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Status;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,7 +27,12 @@ public class OrderService {
     public Response getOrders(@QueryParam("status") String state) {
         Collection<Order> orders;
         if(state != null) {
-            orders = OrderStorage.getStatusOrders(state);
+            Status status = Status.valueOf(state);
+            if(status != null) {
+                orders = OrderStorage.getStatusOrders(status);
+            } else {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
         } else {
             orders = OrderStorage.findAllOrders();
         }
@@ -63,29 +69,17 @@ public class OrderService {
      * @return
      */
     @PUT
-    @Path("/{id}}")
-    public Response cancelPayment(@PathParam("id") int id, @FormParam("action") String action) {
-        if(action.equals("CANCEL")) {
-            if(OrderStorage.getOrder(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
-            OrderStorage.cancelOrder(id);
-            return Response.status(Response.Status.OK).build();
+    @Path("/{id}")
+    public Response updateOrder(@PathParam("id") int id, @FormParam("action") String action) {
+        Status status = Status.valueOf(action);
+        Order order = OrderStorage.getOrder(id);
+        if(order == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
-    }
-
-    /**
-     * (POST /status) Change the state of an order to the next state
-     * @param id  int  (FORM)  id of the order
-     * @return Response JSon format
-     * TODO : Changer l'URL
-     */
-    @POST
-    @Path("/status")
-    public Response getStateOrders(@FormParam("id") int id) {
-        // TODO @Maxime : C'est pas au client de faire ça ?
-        // TODO Reponse : le status est changé par le paiment puis pas le service de livraison.
-        OrderStorage.getOrder(id).nextStatus();
+        if(status == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        order.setStatus(status);
         return Response.ok().build();
     }
-
 }

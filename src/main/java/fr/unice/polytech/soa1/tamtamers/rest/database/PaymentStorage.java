@@ -27,7 +27,11 @@ public class PaymentStorage {
 
     public static Collection<Payment> getToPay() {
         HashMap<Integer, Payment> topay = new HashMap<Integer, Payment>();
-
+        for(Payment payment: payments.values()) {
+            if(payment.getStatus() == Payment.Status.WAITING) {
+                topay.put(payment.getOrder(), payment);
+            }
+        }
         return topay.values();
     }
 

@@ -12,6 +12,20 @@ public class Payment {
         this.status = Status.UNKNOWED;
     }
 
+    @Override
+    public String toString(){
+        String transaction = "";
+        if(this.transaction.equals("")) {
+            transaction += ",\"numero de transaction\":" + "\"" + transaction + "\"";
+        }
+        return "{" +
+                "\"order\":" + order +
+                ",\"amount\":" + amount +
+                ",\"status\":" + "\"" + status + "\"" +
+                transaction +
+            "}";
+    }
+
     public int getOrder() {
         return order;
     }
@@ -56,12 +70,17 @@ public class Payment {
         this.status = Status.DECLINE;
     }
 
+    public void waiting() {
+        this.status = Status.WAITING;
+    }
+
     public void setType(Type type) {
         this.type = type;
     }
 
     public enum Status {
         UNKNOWED("Inconnu"),
+        WAITING("En attente de validation"),
         VALID("Validé"),
         DECLINE("Refusé");
 
