@@ -6,6 +6,7 @@ public enum Status {
     PREPARING_SHIPMENT ("Preparing Shipement"),
     SHIPING ("Shiping"),
     ARCHIVED ("Archived"),
+    PROBLEM ("Problem occured"),
     CANCELED("Canceled");
 
     private final String val;

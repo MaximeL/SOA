@@ -10,6 +10,10 @@ import java.util.Random;
 public class StockStorage {
     private static HashMap<Integer, StockItem> stockItems = new HashMap<Integer, StockItem>();
 
+    public static HashMap<Integer, StockItem> getHashMap() {
+        return stockItems;
+    }
+
     public static Collection<StockItem> getAllStockItems() {
         HashMap<Integer, StockItem> items = new HashMap<Integer, StockItem>();
         for(StockItem item : stockItems.values()) {

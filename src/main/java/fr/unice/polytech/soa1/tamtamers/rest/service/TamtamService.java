@@ -2,9 +2,11 @@ package fr.unice.polytech.soa1.tamtamers.rest.service;
 
 import fr.unice.polytech.soa1.tamtamers.rest.database.DecorationStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.ShipmentStorage;
+import fr.unice.polytech.soa1.tamtamers.rest.database.StockStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.database.TamtamStorage;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Decoration;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Shipment;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.StockItem;
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Tamtam;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,6 +58,12 @@ public class TamtamService {
         Tamtam tamtam = TamtamStorage.getTamtam(id);
         if(tamtam == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        StockItem item = StockStorage.getStockItem(id);
+        if(item.getNumberInStock() == 0) {
+            tamtam.setStatus(Tamtam.Status.OUT);
+        } else {
+            tamtam.setStatus(Tamtam.Status.STOCK);
         }
         return Response.ok().entity(tamtam.toString()).build();
     }
@@ -164,7 +172,7 @@ public class TamtamService {
         tamtam.setShipments(shipmentHashMap);
 
         TamtamStorage.createTamtam(tamtam);
-        return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/tamtams" + tamtam.getId())).build();
+        return Response.created(URI.create("http://localhost:8181/cxf/tamtamers/tamtams/" + tamtam.getId())).build();
     }
 
     /**
@@ -215,32 +223,33 @@ public class TamtamService {
             if(skin != null) {
                 tamtam.setSkin(skin);
             }
-            // TODO : Valeur par défaut du prix ?
             if(price != null) {
                 tamtam.setPrice(price);
             }
-
-            HashMap<Integer, Decoration> decorationHashMap = new HashMap<Integer, Decoration>();
-            for(int i = 0; i < decorations.length(); i++) {
-                Integer decorationId = (Integer) decorations.get(i);
-                Decoration decoration = DecorationStorage.getDecoration(decorationId);
-                if (decoration == null) {
-                    return Response.status(Response.Status.BAD_REQUEST).build();
+            if(decorations != null) {
+                HashMap<Integer, Decoration> decorationHashMap = new HashMap<Integer, Decoration>();
+                for (int i = 0; i < decorations.length(); i++) {
+                    Integer decorationId = (Integer) decorations.get(i);
+                    Decoration decoration = DecorationStorage.getDecoration(decorationId);
+                    if (decoration == null) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                    decorationHashMap.put(decorationId, decoration);
                 }
-                decorationHashMap.put(decorationId, decoration);
+                tamtam.setDecorations(decorationHashMap);
             }
-            tamtam.setDecorations(decorationHashMap);
-
-            HashMap<Integer, Shipment> shipmentHashMap = new HashMap<Integer, Shipment>();
-            for(int i = 0; i < shipments.length(); i++) {
-                Integer shipmentId = (Integer) shipments.get(i);
-                Shipment shipment= ShipmentStorage.getShipment(shipmentId);
-                if (shipment == null) {
-                    return Response.status(Response.Status.BAD_REQUEST).build();
+            if(shipments != null) {
+                HashMap<Integer, Shipment> shipmentHashMap = new HashMap<Integer, Shipment>();
+                for (int i = 0; i < shipments.length(); i++) {
+                    Integer shipmentId = (Integer) shipments.get(i);
+                    Shipment shipment = ShipmentStorage.getShipment(shipmentId);
+                    if (shipment == null) {
+                        return Response.status(Response.Status.BAD_REQUEST).build();
+                    }
+                    shipmentHashMap.put(shipmentId, shipment);
                 }
-                shipmentHashMap.put(shipmentId, shipment);
+                tamtam.setShipments(shipmentHashMap);
             }
-            tamtam.setShipments(shipmentHashMap);
 
             return Response.ok().entity(tamtam.toString()).build();
         }

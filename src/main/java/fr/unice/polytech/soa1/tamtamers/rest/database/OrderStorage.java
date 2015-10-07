@@ -1,6 +1,8 @@
 package fr.unice.polytech.soa1.tamtamers.rest.database;
 
 import fr.unice.polytech.soa1.tamtamers.rest.entity.Order;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Payment;
+import fr.unice.polytech.soa1.tamtamers.rest.entity.Status;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,12 +36,15 @@ public class OrderStorage {
         return result.values();
     }
 
-    public static Collection<Order> getStatusOrders(String state) {
+    public static Collection<Order> getStatusOrders(Status state) {
         HashMap<Integer, Order> result = new HashMap<Integer, Order>();
         for(Map.Entry<Integer, Order> entry : orders.entrySet()) {
             Integer key = entry.getKey();
             Order value = entry.getValue();
-            if(value.getStatus().equals(state) && !result.containsKey(key)) result.put(key, value);
+
+            if(value.getStatus() == state && !result.containsKey(key)) {
+                result.put(key, value);
+            }
         }
         return result.values();
     }

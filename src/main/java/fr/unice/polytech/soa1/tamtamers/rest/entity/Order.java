@@ -79,36 +79,9 @@ public class Order {
         return this.status;
     }
 
-    public void nextStatus() {
-        switch (this.status) {
-            case WAITING_PAYMENT:
-                this.status = Status.PREPARING_SHIPMENT;
-                break;
-
-            case PREPARING_SHIPMENT:
-                this.status = Status.SHIPING;
-                this.shipment.generateCodeTracking();
-                break;
-
-            default:
-                this.status = Status.ARCHIVED;
-                break;
-        }
-    }
-
-    public void previousStatus() {
-        switch (this.status) {
-            case ARCHIVED:
-                this.status = Status.SHIPING;
-                break;
-
-            case SHIPING:
-                this.status = Status.PREPARING_SHIPMENT;
-                break;
-
-            default:
-                this.status = Status.WAITING_PAYMENT;
-                break;
+    public void payed() {
+        if(this.status == Status.WAITING_PAYMENT) {
+            this.status = Status.PREPARING_SHIPMENT;
         }
     }
 
@@ -116,6 +89,14 @@ public class Order {
         this.status = Status.CANCELED;
     }
 
+    public void problem()
+    {
+        this.status = Status.PROBLEM;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public String toString()

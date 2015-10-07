@@ -19,6 +19,7 @@ public class TamtamStorage {
 
 	// TAMTAM
 	public static void createTamtam(Tamtam tamtam) {
+		tamtam.setId(tamtams.size() + 1);
 		tamtams.put(tamtam.getId(), tamtam);
 	}
 	public static Tamtam getTamtam(Integer id) {

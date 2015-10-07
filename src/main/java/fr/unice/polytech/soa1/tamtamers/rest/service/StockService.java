@@ -63,9 +63,6 @@ public class StockService {
         if(stockItem == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        if(number <= 0) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
         stockItem.setNumberInStock(number);
         return Response.ok().build();
     }
