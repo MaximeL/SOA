@@ -22,7 +22,7 @@ public class ShipmentService {
     /**
      * List all the shipment or get them by name
      * @param type  String  (QUERY)  status of the shipment
-     * @return
+     * @return Response
      */
     @GET
     public Response getShipment(@QueryParam("type") String type) {

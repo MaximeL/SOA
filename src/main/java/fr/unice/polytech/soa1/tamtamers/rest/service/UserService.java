@@ -14,6 +14,9 @@ import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.Collection;
 
+/**
+ * (PATH /tamtamers/customers) Service that handles customers
+ */
 @Path("/customers")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserService {
@@ -21,7 +24,7 @@ public class UserService {
     /**
      * (GET) Get all users or user by name
      * @param name  String  (QUERY)  Name looking for
-     * @return
+     * @return Response JSONArray
      */
     @GET
     public Response getUsers(@QueryParam("name") String name) {
@@ -46,7 +49,7 @@ public class UserService {
      * @param address2  String  (FORM)  Second part of the adress
      * @param zc        String  (FORM)  Zip code
      * @param state     String  (FORM)  State
-     * @return
+     * @return Response
      */
     @POST
     @Consumes("application/x-www-form-urlencoded")
@@ -73,7 +76,7 @@ public class UserService {
     /**
      * (GET /{id}) Get user by id
      * @param id  int  (PATH)  id of the user
-     * @return
+     * @return Response
      */
     @GET
     @Path("/{id}")
@@ -88,7 +91,7 @@ public class UserService {
     /**
      * (DELETE /{id})Delete the user
      * @param id  int  (PATH)  id of the user
-     * @return
+     * @return Response
      */
     @DELETE
     @Path("/{id}")
@@ -110,7 +113,7 @@ public class UserService {
      * @param address2  String  (FORM)  Second part of the adress
      * @param zc        String  (FORM)  Zip code
      * @param state     String  (FORM)  State
-     * @return
+     * @return Response
      */
     @PUT
     @Path("/{id}")
@@ -153,7 +156,7 @@ public class UserService {
      * (POST /{id}/orders) Create a new order
      * @param id    int         (PATH)  id of the order
      * @param data  JSONObject  (FORM)  order that will replace the one that match the id.
-     * @return
+     * @return Response
      */
     @POST
     @Path("/{id}/orders")

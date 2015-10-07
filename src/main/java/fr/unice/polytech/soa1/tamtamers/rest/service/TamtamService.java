@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * (PATH /tamtamers/tamtams) Services about the tamtams
+ */
 @Path("/tamtams")
 @Produces(MediaType.APPLICATION_JSON)
-/**
- * (PATH /tamtams) Services about the tamtams
- */
 public class TamtamService {
 
     /**
@@ -114,7 +114,7 @@ public class TamtamService {
      * @param price        Double     (FORM)  price of the tamtam
      * @param decorations  JSONArray  (FORM)  Decorations available
      * @param shipments    JSONArray  (FORM)  Shipments available
-     * @return
+     * @return Response
      */
     @POST
     public Response addTamtam(
@@ -187,7 +187,7 @@ public class TamtamService {
      * @param price        Double     (FORM)  price of the tamtam
      * @param decorations  JSONArray  (FORM)  Decorations available
      * @param shipments    JSONArray  (FORM)  Shipments available
-     * @return
+     * @return Response
      */
     @PUT
     @Path("/{id}")
@@ -259,7 +259,7 @@ public class TamtamService {
     /**
      * (DELETE /{id}) Delete tamtam from the showcase
      * @param id  int  (PATH)  id of the tamtam
-     * @return
+     * @return Response
      */
     @DELETE
     @Path("/{id}")

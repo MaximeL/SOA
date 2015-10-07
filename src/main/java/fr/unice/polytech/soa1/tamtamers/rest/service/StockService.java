@@ -10,11 +10,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
+/**
+ * (PATH /entrepot/stock)Service about stocks
+ */
 @Path("/stock")
 @Produces(MediaType.APPLICATION_JSON)
-/**
- * (PATH /stock)Service about stocks
- */
 public class StockService {
     public static final String SERVICE = "/stock";
 

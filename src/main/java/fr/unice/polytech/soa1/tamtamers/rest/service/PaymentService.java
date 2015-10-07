@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * (PATH /payment) Service for the payment
+ * (PATH /bank/payment) Service for the payment
  */
 @Path("/payments")
 @Produces(MediaType.APPLICATION_JSON)

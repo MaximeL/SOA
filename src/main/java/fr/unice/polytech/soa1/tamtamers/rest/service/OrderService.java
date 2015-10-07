@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 /**
- * (PATH /orders) Service for the orders
+ * (PATH /tamtamers/orders) Service for the orders
  */
 @Path("/orders")
 @Produces(MediaType.APPLICATION_JSON)
@@ -66,7 +66,7 @@ public class OrderService {
      * (PUT /{id}) Cancel the order
      * @param id      int     (PATH)   id of the order
      * @param action  String  (FORM)  Must be "CANCEL"
-     * @return
+     * @return Response
      */
     @PUT
     @Path("/{id}")
