@@ -19,7 +19,7 @@ import java.util.Collection;
 public class UserService {
 
     /**
-     * Get all users or user by name
+     * (GET) Get all users or user by name
      * @param name  String  (QUERY)  Name looking for
      * @return
      */
@@ -39,7 +39,7 @@ public class UserService {
     }
 
     /**
-     * Add a user
+     * (POST) Add a user
      * @param fullname  String  (FORM)  name of the customer
      * @param phone     String  (FORM)  phone number of the customer
      * @param address1  String  (FORM)  First part of the adress
@@ -70,7 +70,7 @@ public class UserService {
     }
 
     /**
-     * Get user by id
+     * (GET /{id}) Get user by id
      * @param id  int  (PATH)  id of the user
      * @return
      */
@@ -85,7 +85,7 @@ public class UserService {
     }
 
     /**
-     * Delete the user
+     * (DELETE /{id})Delete the user
      * @param id  int  (PATH)  id of the user
      * @return
      */
@@ -101,7 +101,7 @@ public class UserService {
     }
 
     /**
-     * Modify a user
+     * (PUT /{id}) Modify a user
      * @param id        int     (PATH)  id of the user
      * @param fullname  String  (FORM)  name of the customer
      * @param phone     String  (FORM)  phone number of the customer

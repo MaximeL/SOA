@@ -18,8 +18,8 @@ import java.util.Collection;
 public class OrderService {
 
     /**
-     * (GET) Return all the orders in the database
-     * @param state  String  (QUERY)  Name of the state for filter
+     * (GET) Return all the orders in the database or the order matching a given status
+     * @param state  String  (QUERY)  Name of the state for filter. Optional
      * @return Response JSon format
      */
     @GET
@@ -39,10 +39,12 @@ public class OrderService {
     }
 
     /**
-     * (GET /order) Return an order knowing his id
+     * (GET /{id}) Return an order knowing his id
      * @param id  int  (QUERY)  id of the order
      * @return Response JSon format
      * TODO : Ca affiche bien l'ID de transaction et l'id de livraison ?
+     * TODO : Réponse : id transation = id commande. order contien lobjet shipment et l'affiche (afficher que l'id plutot ?)
+     *
      */
     @GET
     @Path("/{id}")
@@ -55,7 +57,7 @@ public class OrderService {
     }
 
     /**
-     * Cancel the order
+     * (PUT /{id}) Cancel the order
      * @param id      int     (PATH)   id of the order
      * @param action  String  (FORM)  Must be "CANCEL"
      * @return
@@ -72,7 +74,7 @@ public class OrderService {
     }
 
     /**
-     * (POST) Change the state of an order to the next state
+     * (POST /status) Change the state of an order to the next state
      * @param id  int  (FORM)  id of the order
      * @return Response JSon format
      * TODO : Changer l'URL
@@ -81,6 +83,7 @@ public class OrderService {
     @Path("/status")
     public Response getStateOrders(@FormParam("id") int id) {
         // TODO @Maxime : C'est pas au client de faire ça ?
+        // TODO Reponse : le status est changé par le paiment puis pas le service de livraison.
         OrderStorage.getOrder(id).nextStatus();
         return Response.ok().build();
     }

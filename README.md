@@ -7,20 +7,20 @@ Tamtamers society
 ### Documentation
 
 You can find all the docs in the *documents* folder.
-document.docx describe the society and give all the information you need about the project.
-You can find also a javadoc describing the classes and REST API.
+The file *document.docx* describe the society and give all the information you need about the project.
+You can find also the javadoc describing the services in *javadoc/index.html*.
 
 ### Sources
 
-No big deal here. The sources can be found in the src folder. 
+No big deal here, the sources can be found in the *src* folder. 
 
 ### Build
 
-To build the project simply run :
+To build the project simply run at the root of the project :
 
 `mvn clean package`
 
-then you'll find the jar and *.class* in the *target* folder.
+then you'll find the *jar* and *.class* in the *target* folder.
 
 ### Testing the RESTful API
 

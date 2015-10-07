@@ -21,7 +21,7 @@ import java.util.Map;
 public class PaymentService {
 
     /**
-     * (PUT) Payment by creditcard. Payment is valide if amout is odd.
+     * (PUT) Payment by creditcard. Mock : Payment is valide if amout is odd.
      * @param card              String   (FORM)  card number
      * @param owner             String   (FORM)  owner name
      * @param verificationCode  String   (FORM)  verification code
@@ -71,8 +71,8 @@ public class PaymentService {
     }
 
     /**
-     * All the payment that need to be validated
-     * @return
+     * (GET) All the payment that need to be validated
+     * @return Response JSONArray
      */
     @GET
     public Response getToPay() {
@@ -86,10 +86,10 @@ public class PaymentService {
     }
 
     /**
-     * Set status of a payment.
+     * (PUT /{id}) Set status of a payment.
      * @param id      int     (PATH)  id of the payment
      * @param status  String  (FORM)  status to set
-     * @return
+     * @return Response
      */
     @PUT
     @Path("/{id}")

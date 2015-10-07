@@ -33,7 +33,7 @@ public class StockService {
     }
 
     /**
-     * (GET) Return an item of the stock regarding his id.
+     * (GET /{id}) Return an item of the stock regarding his id.
      * @param id int (PATH) id of the item you're looking for
      * @return Response JSon format
      */
@@ -48,7 +48,7 @@ public class StockService {
     }
 
     /**
-     * [PUT /add) Increment the number of element of an item in the stock
+     * [PUT /{id}) Increment the number of element of an item in the stock
      * @param id      int  (PATH)  id of the item
      * @param number  int  (FORM)  number of element to add
      * @return Response JSon format

@@ -46,7 +46,7 @@ public class TamtamService {
     }
 
     /**
-     * (GET) Detail of a tamtam regarding his id
+     * (GET /{id}) Detail of a tamtam regarding his id
      * @param id  int  (PATH)  Tamtam's id you're looking for
      * @return Response JSon format
      */
@@ -96,7 +96,7 @@ public class TamtamService {
     }
 
     /**
-     * Add a tamtam to the showcase
+     * (POST) Add a tamtam to the showcase
      * @param name         String     (FORM)  name of the tamtam
      * @param description  String     (FORM)  description of the tamtam
      * @param image        String     (FORM)  image of the tamtam
@@ -168,7 +168,7 @@ public class TamtamService {
     }
 
     /**
-     * Update tamtam
+     * (PUT /{id})Update tamtam
      * @param id           Integer    (PATH)  id of the tamtam
      * @param name         String     (FORM)  name of the tamtam
      * @param description  String     (FORM)  description of the tamtam
@@ -248,12 +248,12 @@ public class TamtamService {
     }
 
     /**
-     * Delete tamtam from the showcase
+     * (DELETE /{id}) Delete tamtam from the showcase
      * @param id  int  (PATH)  id of the tamtam
      * @return
      */
     @DELETE
-    @Path("{id}/")
+    @Path("/{id}")
     public Response deleteTamtam(@PathParam("id") int id) {
         if(TamtamStorage.getTamtam(id) == null) return Response.status(Response.Status.NOT_FOUND).build();
         TamtamStorage.deleteTamtam(id);
